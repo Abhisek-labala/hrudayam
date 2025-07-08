@@ -1,0 +1,152 @@
+<?php 
+include('head.php');
+?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<div class="header">
+
+<?php 
+$id = $this->session->userdata('mis_id');
+$query = "SELECT * FROM `mis` WHERE `id`='".$id."'";
+$profilelData 	=  $this->master_model->customQueryRow($query);
+//pr($profilelData);
+//die();
+?>
+		
+			<!-- Logo -->
+			<div class="header-left">
+				<a href="<?php echo base_url();?>" class="logo">
+					<img src="<?php echo base_url()?>/uploads/logo.png" alt="Logo">
+				</a>
+				<a href="<?php echo base_url();?>" class="logo logo-small">
+					<img src="<?php echo base_url()?>/uploads/logo.png" alt="Logo" width="30" height="30">
+				</a>
+			</div>
+			<!-- /Logo -->
+			
+			<a href="javascript:void(0);" id="toggle_btn">
+				<i class="fa fa-list-ul"></i>
+			</a>
+			
+			<div class="top-nav-search">
+				<form>
+					<input type="text" class="form-control" placeholder="Search here">
+					<button class="btn" type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+			
+			<!-- Mobile Menu Toggle -->
+			<a class="mobile_btn" id="mobile_btn">
+				<i class="fa fa-bars"></i>
+			</a>
+			<!-- /Mobile Menu Toggle -->
+			
+			<!-- Header Right Menu -->
+			<ul class="nav user-menu">
+
+				<!-- Notifications -->
+				<!-- <li class="nav-item dropdown noti-dropdown">
+					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+						<i class="fe fe-bell"></i> <span class="badge rounded-pill">3</span>
+					</a>
+					<div class="dropdown-menu notifications">
+						<div class="topnav-dropdown-header">
+							<span class="notification-title">Notifications</span>
+							<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+						</div>
+						<div class="noti-content">
+							<ul class="notification-list">
+								<li class="notification-message">
+									<a href="#">
+										<div class="notify-block d-flex">
+											<span class="avatar avatar-sm flex-shrink-0">
+												<img class="avatar-img rounded-circle" alt="User Image" src="Doccure%20-%20Basic%20Inputs_files/doctor-thumb-01.jpg">
+											</span>
+											<div class="media-body flex-grow-1">
+												<p class="noti-details"><span class="noti-title">Dr. Ruby Perrin</span> Schedule <span class="noti-title">her appointment</span></p>
+												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="notification-message">
+									<a href="#">
+										<div class="notify-block d-flex">
+											<span class="avatar avatar-sm flex-shrink-0">
+												<img class="avatar-img rounded-circle" alt="User Image" src="Doccure%20-%20Basic%20Inputs_files/patient1.jpg">
+											</span>
+											<div class="media-body flex-grow-1">
+												<p class="noti-details"><span class="noti-title">Charlene Reed</span> has booked her appointment to <span class="noti-title">Dr. Ruby Perrin</span></p>
+												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="notification-message">
+									<a href="#">
+										<div class="notify-block d-flex">
+											<span class="avatar avatar-sm flex-shrink-0">
+												<img class="avatar-img rounded-circle" alt="User Image" src="Doccure%20-%20Basic%20Inputs_files/patient2.jpg">
+											</span>
+											<div class="media-body flex-grow-1">
+											<p class="noti-details"><span class="noti-title">Travis Trimble</span> sent a amount of $210 for his <span class="noti-title">appointment</span></p>
+											<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="notification-message">
+									<a href="#">
+										<div class="notify-block d-flex">
+											<span class="avatar avatar-sm flex-shrink-0">
+												<img class="avatar-img rounded-circle" alt="User Image" src="Doccure%20-%20Basic%20Inputs_files/patient3.jpg">
+											</span>
+											<div class="media-body flex-grow-1">
+												<p class="noti-details"><span class="noti-title">Carl Kelly</span> send a message <span class="noti-title"> to his doctor</span></p>
+												<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="topnav-dropdown-footer">
+							<a href="#">View all Notifications</a>
+						</div>
+					</div>
+				</li> -->
+				<!-- /Notifications -->
+				
+				<!-- User Menu -->
+                
+                <?php 
+				$profileImage =  base_url().'uploads/user_icon.jpg';
+				if($profilelData->profile_image){
+					$profileImage =  
+					$profileImage =  base_url().'uploads/'.$profilelData->profile_image;
+				}
+				?>
+				<li class="nav-item dropdown has-arrow">
+					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+						<span class="user-img"><img class="rounded-circle" src="<?php  echo $profileImage?>" alt="User Image" width="31"></span>
+					</a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm">                              
+								<img src="<?php  echo $profileImage?>" alt="User Image" class="avatar-img rounded-circle">
+							</div>
+							<div class="user-text">
+								<h6><?php echo $profilelData->user_name?></h6> 
+								<p class="text-muted mb-0">Mis</p> 
+							</div>
+						</div>
+						<!-- <a class="dropdown-item" href="profile.html">My Profile</a>
+						<a class="dropdown-item" href="settings.html">Settings</a> -->
+						<a class="dropdown-item" href="<?php echo base_url()?>/mis-logout">Logout</a> 
+					</div>
+				</li>
+				<!-- /User Menu -->
+				
+			</ul>
+			<!-- /Header Right Menu -->
+			
+		</div>

@@ -1,0 +1,44 @@
+# Ignore system folder if using Composer to manage it
+/application/cache/*
+!/application/cache/index.html
+
+/application/logs/*
+!/application/logs/index.html
+
+# Ignore environment-specific config files
+.env
+.env.*
+
+# Ignore writable files (CodeIgniter 4 specific)
+writable/*
+!writable/index.html
+
+# Ignore composer files if not using Composer
+/vendor/*
+!.gitkeep
+
+# IDE / OS specific files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.DS_Store
+*.idea/
+.vscode/
+
+# Node / npm files
+node_modules/
+
+# Ignore tests/output
+/tests/coverage/
+phpunit.xml
+
+# Ignore build artifacts
+/build/
+dist/
+
+/application/views/pm/my_helper.php
+
+/application/views/mis/my_helper.php
+
+/application/views/admin/my_helper.php
