@@ -27,6 +27,9 @@
                       <li> 
 							   <a href="<?php echo base_url();?>MIS-Create-RM"><span> RM</span></a>
 							</li>
+                      <li> 
+							   <a href="<?php echo base_url();?>Mis-Create-DE"><span> Digital Educator</span></a>
+							</li>
 						</ul>
 					</li>
 
@@ -38,6 +41,12 @@
 							</li>
 							<li> 
 							<a href="<?php echo base_url();?>MIS-Assign-HCP"><span>HCP</span></a>
+							</li>
+                     <li> 
+							<a href="<?php echo base_url();?>mis-Assign-digital-educator"><span>Patient to Digital Educator</span></a>
+							</li>
+                     <li> 
+							<a href="<?php echo base_url();?>mis-Assign-digital-educator-Rm"><span>Digital Educator to RM</span></a>
 							</li>
 						</ul>
 					</li>
@@ -67,7 +76,9 @@
 				<!-- <li> 
                   <a href="<?php echo base_url();?>mis-change-password"><i class="fa fa-key"></i> <span>Change Password</span></a>
                </li> -->
-
+<li> 
+                  <a href="<?php echo base_url();?>mis-feedback"><i class="fa fa-ticket"></i> <span>Feedbacks</span></a>
+               </li>
 			   <li> 
                   <a href="<?php echo base_url();?>mis-logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 
 				  <span>Logout</span></a>

@@ -30,7 +30,7 @@ include('header.php');
 							<h4 class="card-title">Educators Management</h4>
 							<button type="button" class="btn btn-primary float-right" data-toggle="modal"
 								data-target="#educatorModal" onclick="resetForm()">
-								<i class="fa fa-plus"></i> Add Educator
+								<i class="fa fa-plus"></i> Add Digital Educator
 							</button>
 						</div>
 						<div class="card-body">
@@ -41,12 +41,7 @@ include('header.php');
 											<th>ID</th>
 											<th>Emp Id</th>
 											<th>Name</th>
-											<th>Email</th>
 											<th>Password</th>
-											<th>Mobile</th>
-											<th>City</th>
-											<th>State</th>
-											<th>Address</th>
 											<th>Rm Name</th>
 											<th>Actions</th>
 										</tr>
@@ -72,10 +67,10 @@ include('header.php');
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modalTitle">Add Educator</h5>
+				<h5 class="modal-title" id="modalTitle">Add Digital Educator</h5>
 			</div>
 			<div class="modal-body">
-				<form action="MIS-Create-Educator-Post" name="createEducator" id="createEducator" method="post"
+				<form action="Mis-Create-DigiEducator-Post" name="createEducator" id="createEducator" method="post"
 					enctype="multipart/form-data">
 					<input type="hidden" name="educator_id" id="educator_id">
 					<div class="row">
@@ -98,12 +93,6 @@ include('header.php');
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Email <span class="text-danger">*</span></label>
-								<input type="email" maxlength="50" class="form-control" name="email" id="email">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
 								<label>Password <span class="text-danger">*</span></label>
 								<input type="password" maxlength="12" class="form-control" name="password"
 									id="password">
@@ -111,51 +100,6 @@ include('header.php');
 							</div>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Mobile <span class="text-danger">*</span></label>
-								<input type="text" maxlength="10" class="form-control" name="mobile" id="mobile">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>State <span class="text-danger">*</span></label>
-								<select class="form-control" name="state" id="state">
-									<option value=""> -- Select -- </option>
-									<?php
-									$states = getIndianStates();
-									foreach ($states as $code => $name) {
-										echo '<option value="' . $code . '">' . $name . '</option>';
-									}
-									?>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>City <span class="text-danger">*</span></label>
-								<input type="text" maxlength="50" class="form-control" name="city" id="city">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Profile Image</label>
-								<input class="form-control" type="file" name="profile_image" id="profile_image">
-								<div id="profile_image_preview" class="mt-2"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label>Address <span class="text-danger">*</span></label>
-						<textarea maxlength="200" rows="3" class="form-control" name="address" id="address"></textarea>
-					</div>
-
 					<div class="text-center">
 						<button type="submit" name="submit" id="submitBtn" class="btn btn-primary">Submit</button>
 						<button type="button" class="btn btn-secondary" onclick="closemodal();" data-dismiss="modal">Cancel</button>
@@ -175,7 +119,7 @@ include('header.php');
 				<h5 class="modal-title">Confirm Delete</h5>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure you want to delete this educator?</p>
+				<p>Are you sure you want to delete this digital educator?</p>
 				<input type="hidden" id="delete_id">
 			</div>
 			<div class="modal-footer">
@@ -214,7 +158,7 @@ include('footer.php');
 				processing: true,
 				serverSide: true,
 				ajax: {
-					url: 'MIS-Get-Educators',
+					url: 'Mis-Get-DigiEducators',
 					type: 'POST',
 					dataType: 'json',
 					contentType: 'application/json',
@@ -242,12 +186,7 @@ include('footer.php');
 					{ data: 'id' },
 					{ data: 'emp_id' },
 					{ data: 'first_name' },
-					{ data: 'email' },
 					{ data: 'password' },
-					{ data: 'mobile' },
-					{ data: 'city' },
-					{ data: 'state' },
-					{ data: 'address' },
 					{ data: 'rm' },
 					{
 						data: null,
@@ -273,7 +212,6 @@ include('footer.php');
 		$('#modalTitle').text('Add Educator');
 		$('#createEducator')[0].reset();
 		$('#educator_id').val('');
-		$('#profile_image_preview').html('');
 		$('#password').val('').removeAttr('placeholder');
 		$('#submitBtn').text('Submit');
 
@@ -296,7 +234,7 @@ include('footer.php');
     var id = $('#delete_id').val();
     
     $.ajax({
-        url: 'MIS-Delete-Educator/' + id,
+        url: 'Mis-Delete-DigiEducator/' + id,
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
@@ -340,7 +278,7 @@ include('footer.php');
     
     if (validateEducatorForm()) {
         var formData = new FormData(this);
-        var url = $('#educator_id').val() ? 'MIS-Update-Educator-Post' : 'MIS-Create-Educator-Post';
+        var url = $('#educator_id').val() ? 'Mis-Update-DigiEducator-Post' : 'Mis-Create-DigiEducator-Post';
 
         $.ajax({
             url: url,
@@ -392,13 +330,7 @@ function showAlert(type, message) {
 
 		const firstName = $('#first_name').val().trim();
 		const emp_id = $('#emp_id').val().trim();
-		const email = $('#email').val().trim();
 		const password = $('#password').val();
-		const mobile = $('#mobile').val().trim();
-		const state = $('#state').val();
-		const city = $('#city').val().trim();
-		const address = $('#address').val().trim();
-		const profileImage = $('#profile_image').val();
 		const educatorId = $('#educator_id').val();
 
 		// Clear previous errors
@@ -414,10 +346,6 @@ function showAlert(type, message) {
 			isValid = false;
 		}
 
-		if (!isValidEmail(email)) {
-			$('#email').addClass('is-invalid').after('<div class="invalid-feedback">Invalid email address</div>');
-			isValid = false;
-		}
 
 		// Only validate password if it's a new educator or password field is not empty
 		if (!educatorId || (educatorId && !isEmpty(password))) {
@@ -427,30 +355,6 @@ function showAlert(type, message) {
 			}
 		}
 
-		if (!isValidMobile(mobile)) {
-			$('#mobile').addClass('is-invalid').after('<div class="invalid-feedback">Mobile must be 10 digits</div>');
-			isValid = false;
-		}
-
-		if (isEmpty(state)) {
-			$('#state').addClass('is-invalid').after('<div class="invalid-feedback">State is required</div>');
-			isValid = false;
-		}
-
-		if (!isValidCity(city)) {
-			$('#city').addClass('is-invalid').after('<div class="invalid-feedback">City must contain only letters</div>');
-			isValid = false;
-		}
-
-		if (isEmpty(address)) {
-			$('#address').addClass('is-invalid').after('<div class="invalid-feedback">Address is required</div>');
-			isValid = false;
-		}
-
-		if (!isValidImageFile(profileImage)) {
-			$('#profile_image').addClass('is-invalid').after('<div class="invalid-feedback">Only JPG, JPEG, PNG files are allowed</div>');
-			isValid = false;
-		}
 
 		if (!isValid) {
 			return false;

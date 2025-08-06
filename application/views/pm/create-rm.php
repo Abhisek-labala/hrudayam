@@ -39,8 +39,10 @@ include('header.php');
 									<thead>
 										<tr>
 											<th>ID</th>
+											<th>Emp Id</th>
 											<th>Name</th>
 											<th>Username</th>
+											<th>Password</th>
 											<th>Zone</th>
 											<th>Actions</th>
 										</tr>
@@ -72,6 +74,13 @@ include('header.php');
 				<form action="Pm-Create-Rm-Post" name="createRm" id="createRm" method="post"
 					enctype="multipart/form-data">
 					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>EMP ID <span class="text-danger">*</span></label>
+								<input type="text" maxlength="50" class="form-control" name="emp_id"
+									id="emp_id">
+							</div>
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Full Name <span class="text-danger">*</span></label>
@@ -182,8 +191,10 @@ include('footer.php');
 				},
 				columns: [
 					{ data: 'id' },
+					{ data: 'emp_id' },
 					{ data: 'name' },
 					{ data: 'username' },
+					{ data: 'password' },
 					{ data: 'zone' },
 					{
 						data: null,
@@ -209,6 +220,7 @@ include('footer.php');
 		$('#modalTitle').text('Add Rm');
 		$('#createRm')[0].reset();
 		$('#rm_id').val('');
+		$('#emp_id').val('');
 		$('#password').val('').removeAttr('placeholder');
 		$('#submitBtn').text('Submit');
 		$('#zone_id').html('<option value="">Loading...</option>');

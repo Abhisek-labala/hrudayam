@@ -106,6 +106,10 @@ $route['Pm-dashboard']   	    = "Pm/dashBoard";
 $route['Pm-Create-Educator']   	    = "Pm/CreateEducator";
 $route['Pm-Create-Educator-Post']   	    = "Pm/createEducatorPost";
 $route['Pm-Get-Educators']   	    = "Pm/getEducators";
+$route['Pm-Create-DE']   	    = "Pm/CreateDigitalEducator";
+$route['Pm-Create-DigiEducator-Post']   	    = "Pm/createDigiEducatorPost";
+$route['Pm-Get-DigiEducators']   	    = "Pm/digigetEducators";
+$route['Pm-Delete-DigiEducator/(:num)'] = "Pm/deletedigiEducator/$1";
 $route['Pm-Get-Doctors']   	    = "Pm/getDoctors";
 $route['Pm-Delete-Educator/(:num)'] = "Pm/deleteEducator/$1";
 $route['Pm-Delete-Doctor/(:num)'] = "Pm/deleteDoctor/$1";
@@ -119,9 +123,15 @@ $route['Pm-Get-Rm']   	    = "Pm/getRm";
 $route['Pm-Create-Rm-Post']   	    = "Pm/createRmPost";
 $route['PM-Assign-EDUCATOR']    ="Pm/assignEducatorView";
 $route['pm-Assign-Educator-Post']    ="Pm/pmassignEducatorPost";
+$route['PM-Assign-digital-educator-Rm']    ="Pm/assigndigiEducatorView";
+$route['pm-Assign-DigitalEducator-Post']    ="Pm/pmassignDigitalEducatorPost";
 $route['pm-Assign-Hcp-Post']    ="Pm/pmassignHcpPost";
 $route['PM-Assign-HCP']      ="Pm/assignHcpView";
 $route['pm-Analytics']      ="Pm/analytics";
+$route['Assign-digital-educator']      ="Pm/assigndigital";
+$route['pm-feedback']      ="Pm/feedback";
+$route['pm-feedbackform']      ="Pm/feedbackform";
+$route['assign_digitaleducator_post']      ="Pm/assign_digitaleducator_post";
 $route['pm-logout']             = "Pm/logout";
 $route['Pm-logout']             = "Pm/logout";
 ///////////Pm/////
@@ -137,7 +147,11 @@ $route['Mis-logout']             = "Mis/logout";
 $route['MIS-Create-Educator']   	    = "Mis/CreateEducator";
 $route['MIS-Create-Educator-Post']   	    = "Mis/createEducatorPost";
 $route['MIS-Get-Educators']   	    = "Mis/getEducators";
+$route['Mis-Create-DE']   	    = "Mis/CreateDigitalEducator";
+$route['Mis-Create-DigiEducator-Post']   	    = "Mis/createDigiEducatorPost";
+$route['Mis-Get-DigiEducators']   	    = "Mis/digigetEducators";
 $route['MIS-Get-Doctors']   	    = "Mis/getDoctors";
+$route['Mis-Delete-DigiEducator/(:num)'] = "Mis/deletedigiEducator/$1";
 $route['MIS-Delete-Educator/(:num)'] = "Mis/deleteEducator/$1";
 $route['MIS-Delete-Doctor/(:num)'] = "Mis/deleteDoctor/$1";
 $route['MIS-Delete-Rm/(:num)'] = "Mis/deleteRM/$1";
@@ -150,6 +164,12 @@ $route['MIS-Get-Rm']   	    = "Mis/getRm";
 $route['MIS-Create-Rm-Post']   	    = "Mis/createRmPost";
 $route['MIS-Assign-EDUCATOR']    ="Mis/assignEducatorView";
 $route['MIS-Assign-Educator-Post']    ="Mis/MisassignEducatorPost";
+$route['mis-Assign-digital-educator-Rm']    ="Mis/assigndigiEducatorView";
+$route['mis-Assign-DigitalEducator-Post']    ="Mis/misassignDigitalEducatorPost";
+$route['mis-Assign-digital-educator']      ="Mis/assigndigital";
+$route['mis-feedback']      ="Mis/feedback";
+$route['mis-feedbackform']      ="Mis/feedbackform";
+$route['mis-assign_digitaleducator_post']      ="Mis/misassign_digitaleducator_post";
 $route['MIS-Assign-Hcp-Post']    ="Mis/MisassignHcpPost";
 $route['MIS-Assign-HCP']      ="Mis/assignHcpView";
 ///////////Mis/////
@@ -172,6 +192,7 @@ $route['Patient-List']       = "Educator/patientList";
 
 $route['educator-change-password']             = "Educator/changePassword";
 $route['educator-change-password-post']        = "Educator/changePasswordPost";
+$route['educator-follow-up-form']        = "Educator/educatorfollowupform";
 
 
 $route['Educator-logout']            = "Educator/logout";
@@ -187,10 +208,26 @@ $route['Digital-Educator-logout']            = "DigitalEducator/logout";
 $route['Digital-educator-change-password']             = "DigitalEducator/changePassword";
 $route['Digital-educator-change-password-post']        = "DigitalEducator/changePasswordPost";
 $route['Digital-educator-follow-up-form']        = "DigitalEducator/followupform";
-
-
+$route['Digital-educator-follow-up-form-post']        = "DigitalEducator/followupformpost";
+$route['DigitalEducator-Patient-Inquiry']            = "DigitalEducator/createPatientInquiry";
+$route['DigitalEducator-Patient-Inquiry-Post']       = "DigitalEducator/createPatientInquiryPost";
 
 ///////////DIGITAL EDUCATOR/////////////
+
+////////YOGA DIETOICIAL//////////////////
+$route['Digital-YogaDieticial-login'] ='Welcome/digitalYogaDieticialLogin';
+$route['Digital-YogaDieticial-login-Post'] ='Welcome/loginAuth2';
+$route['Digital-YogaDieticial-Dashboard'] ='DigitalYogaDieticial/dashboard';
+$route['digital-Patient-List2']       = "DigitalYogaDieticial/digitalPatientList";
+$route['Digital-YogaDieticial-logout']            = "DigitalYogaDieticial/logout";
+$route['Digital-YogaDieticial-change-password']             = "DigitalYogaDieticial/changePassword";
+$route['Digital-YogaDieticial-change-password-post']        = "DigitalYogaDieticial/changePasswordPost";
+$route['Digital-YogaDieticial-follow-up-form']        = "DigitalYogaDieticial/followupform";
+$route['Digital-YogaDieticial-follow-up-form-post']        = "DigitalYogaDieticial/followupformpost";
+$route['DigitalYogaDieticial-Patient-Inquiry']            = "DigitalYogaDieticial/createPatientInquiry";
+$route['DigitalYogaDieticial-Patient-Inquiry-Post']       = "DigitalYogaDieticial/createPatientInquiryPost";
+
+// //////////////////YOGA DIETOICIAL////////////////
 
 
 ///////////RM//////////////

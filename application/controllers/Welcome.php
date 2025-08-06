@@ -64,6 +64,10 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('digitaleducator/login');
 	}
+	public function digitalYogaDieticialLogin()
+	{
+		$this->load->view('yogadietician/login');
+	}
 	public function loginAuth()
 	{		
 		$email			= trim($_POST['email']);
@@ -139,6 +143,84 @@ class Welcome extends CI_Controller {
 		}else{			
 			$this->session->set_flashdata('error','Please Enter Email and Password');
 			redirect(base_url().'/Digital-Educator-login');
+			die();
+		}
+	}
+	public function loginAuth2()
+	{		
+		$email			= trim($_POST['email']);
+		$password		= trim($_POST['password']);	
+		
+		if (empty($email)) {
+			$error = "Email is required.";
+			redirect(base_url().'/Digital-YogaDieticial-login');
+		} 
+		
+		// if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		// 	$this->session->set_flashdata('error','Please Enter Email');
+		// 	redirect(base_url().'/Digital-YogaDieticial-login');
+		// 	die();
+		// } 
+
+		if (empty($password)) {
+			$this->session->set_flashdata('error','Please Enter Password');
+			redirect(base_url().'/Digital-YogaDieticial-login');
+			die();
+		} 
+		
+		if($email && $password){
+			$loginDataArray = array();
+			$loginDataArray['emp_id'] 	= $email;
+			$loginDataArray['password'] = $password;
+			$login_data = $this->master_model->getRow('digital_yoga_dietician',$loginDataArray);
+			unset($loginDataArray);
+			
+			if($login_data){
+				$this->session->set_userdata('digital_yoga_dietician_id', $login_data->id);
+				$this->session->set_userdata('type', 'digital_yoga_dietician');
+				
+				$login_logs = array(); 
+				$login_logs['email'] = $email;
+				$login_logs['type'] = 'digital_yoga_dietician';
+				$login_logs['ip'] = get_client_ip();
+				$this->master_model->save('login_logs',$login_logs); 
+				unset($login_logs);
+				
+				//redirect(base_url().'/Patient-Information');
+				redirect(base_url().'/Digital-Educator-Dashboard');
+				
+			}else{		
+ 
+
+				$loginDataArray['emp_id'] 	= $email;
+				$loginDataArray['password'] = $password;
+				$emp_login_data = $this->master_model->getRow('digital_yoga_dietician',$loginDataArray);
+
+				if($emp_login_data){
+					
+					$login_logs = array(); 
+					$login_logs['email'] = $email;
+					$login_logs['type'] = 'digital_yoga_dietician';
+					$login_logs['ip'] = get_client_ip();
+					$this->master_model->save('login_logs',$login_logs);
+					
+					
+					$this->session->set_userdata('digital_yoga_dietician_id', $emp_login_data->id);
+					$this->session->set_userdata('type', 'digital_yoga_dietician');
+								
+					//redirect(base_url().'/Patient-Information');
+					//redirect(base_url().'/Patient-Information');
+					redirect(base_url().'/Digital-Educator-Dashboard');
+				}
+
+			$this->session->set_flashdata('error','Invalid Details');
+			redirect(base_url().'/Digital-YogaDieticial-login');
+			die();
+			}
+			
+		}else{			
+			$this->session->set_flashdata('error','Please Enter Email and Password');
+			redirect(base_url().'/Digital-YogaDieticial-login');
 			die();
 		}
 	}

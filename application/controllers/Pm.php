@@ -183,7 +183,7 @@ class Pm extends CI_Controller
 			}
 
 			// Hash password
-			$educatorData['password'] = password_hash($educatorData['password'], PASSWORD_DEFAULT);
+			// $educatorData['password'] = password_hash($educatorData['password'], PASSWORD_DEFAULT);
 
 			// Add profile image if uploaded
 			if ($profileImageName) {
@@ -239,12 +239,14 @@ class Pm extends CI_Controller
 			$columns = [
 				'educator.id',
 				'educator.first_name',
+				'educator.emp_id',
 				'educator.email',
 				'educator.mobile',
 				'educator.city',
 				'educator.state',
 				'educator.address',
-				'rm_name.name'
+				'rm_name.name',
+				'educator.password'
 			];
 			$orderBy = $columns[$orderColumn] ?? $columns[0];
 
@@ -284,12 +286,14 @@ class Pm extends CI_Controller
 				'data' => array_map(function ($record) {
 					return [
 						'id' => $record->id,
+						'emp_id' => $record->emp_id,
 						'first_name' => $record->first_name,
 						'email' => $record->email,
 						'mobile' => $record->mobile,
 						'city' => $record->city,
 						'state' => $record->state,
 						'address' => $record->address,
+						'password' => $record->password,
 						'rm' => $record->rm_name ?: 'N/A'
 					];
 				}, $records)
@@ -310,6 +314,215 @@ class Pm extends CI_Controller
 		header('Content-Type: application/json');
 		echo json_encode($data);
 		exit;
+	}
+	public function CreateDigitalEducator()
+	{
+		$this->load->view('pm/create-digieducator');
+	}
+	public function createDigiEducatorPost()
+	{
+		// Check session
+		if (!$this->session->userdata('pm_id')) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode([
+					'status' => false,
+					'message' => 'Session expired. Please login again.'
+				]));
+			return;
+		}
+
+		// Initialize response
+		$response = ['status' => false, 'message' => ''];
+
+		try {
+			// Validate required fields
+			$required_fields = [
+				'first_name',
+				'password',
+				'emp_id'
+			];
+
+			$errors = [];
+			$educatorData = [];
+
+			foreach ($required_fields as $field) {
+				if (empty($this->input->post($field))) {
+					$errors[$field] = ucfirst($field) . " is required.";
+				} else {
+					$educatorData[$field] = $this->security->xss_clean($this->input->post($field));
+				}
+			}
+
+			// Check for errors
+			if (!empty($errors)) {
+				$response['status'] = false;
+				$response['message'] = 'Please correct the errors below.';
+				$response['errors'] = $errors;
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($response));
+				return;
+			}
+
+			// Hash password
+			// $educatorData['password'] = password_hash($educatorData['password'], PASSWORD_DEFAULT);
+
+			// Save educator data
+			$user_id = $this->master_model->save('digital_educator', $educatorData);
+
+			if ($user_id) {
+				$response['status'] = true;
+				$response['message'] = 'Digital Educator created successfully';
+			} else {
+				$response['message'] = 'Failed to create digital_educator. Please try again.';
+			}
+
+		} catch (Exception $e) {
+			log_message('error', 'Digital Educator creation error: ' . $e->getMessage());
+			$response['message'] = 'An error occurred. Please try again.';
+		}
+
+		// Return JSON response
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+	public function digigetEducators()
+	{
+
+		if (!$this->session->userdata('pm_id')) {
+			$this->jsonResponse(['error' => 'Session expired'], 401);
+		}
+
+		try {
+			// Get JSON input
+			$json = file_get_contents('php://input');
+			$postData = json_decode($json, true) ?: [];
+
+			// Extract parameters with defaults
+			$draw = (int) ($postData['draw'] ?? 0);
+			$start = (int) ($postData['start'] ?? 0);
+			$length = (int) ($postData['length'] ?? 10);
+			$searchValue = trim($postData['search']['value'] ?? '');
+
+			// Ordering
+			$orderColumn = (int) ($postData['order'][0]['column'] ?? 0);
+			$orderDir = in_array(strtoupper($postData['order'][0]['dir'] ?? 'ASC'), ['ASC', 'DESC'])
+				? strtoupper($postData['order'][0]['dir'])
+				: 'ASC';
+
+			// Column mapping
+			$columns = [
+				'digital_educator.id',
+				'digital_educator.first_name',
+				'digital_educator.emp_id',
+				'rm_name.name',
+				'digital_educator.password'
+			];
+			$orderBy = $columns[$orderColumn] ?? $columns[0];
+
+			// Base query
+			$this->db->select('digital_educator.*, rm_name.name as rm_name')
+				->from('digital_educator')
+				->join('rm_name', 'rm_name.id = digital_educator.rm_id', 'left');
+
+			// Apply search filter
+			if (!empty($searchValue)) {
+				$this->db->group_start()
+					->like('digital_educator.first_name', $searchValue)
+					->or_like('digital_educator.email', $searchValue)
+					->or_like('digital_educator.mobile', $searchValue)
+					->or_like('digital_educator.city', $searchValue)
+					->or_like('digital_educator.state', $searchValue)
+					->or_like('digital_educator.address', $searchValue)
+					->or_like('rm_name.name', $searchValue)
+					->group_end();
+			}
+
+			// Get filtered count
+			$filteredQuery = clone $this->db;
+			$filteredCount = $filteredQuery->count_all_results('', false);
+
+			// Apply ordering and pagination
+			$this->db->order_by($orderBy, $orderDir)
+				->limit($length, $start);
+
+			$records = $this->db->get()->result();
+
+			// Format response
+			$response = [
+				'draw' => $draw,
+				'recordsTotal' => $this->db->count_all('educator'),
+				'recordsFiltered' => $filteredCount,
+				'data' => array_map(function ($record) {
+					return [
+						'id' => $record->id,
+						'emp_id' => $record->emp_id,
+						'first_name' => $record->first_name,
+						'password' => $record->password,
+						'rm' => $record->rm_name ?: 'N/A'
+					];
+				}, $records)
+			];
+
+			$this->jsonResponse($response);
+
+		} catch (Exception $e) {
+			log_message('error', 'Educators DataTable Error: ' . $e->getMessage());
+			$this->jsonResponse(['error' => 'Server error'], 500);
+		}
+	}
+	public function deletedigiEducator($id)
+	{
+		// Disable output compression for this response
+		if (function_exists('apache_setenv')) {
+			@apache_setenv('no-gzip', '1');
+		}
+		@ini_set('zlib.output_compression', 'Off');
+
+		// Set proper headers
+		header('Content-Type: application/json');
+		header('Content-Encoding: none');
+
+		$response = ['status' => false, 'message' => ''];
+
+		// Check session
+		if (!$this->session->userdata('pm_id')) {
+			$response['message'] = 'Session expired';
+			echo json_encode($response);
+			exit;
+		}
+
+		// Validate ID
+		if (!is_numeric($id) || $id <= 0) {
+			$response['message'] = 'Invalid ID';
+			echo json_encode($response);
+			exit;
+		}
+
+		try {
+			$this->db->trans_start();
+			// Delete record
+			$this->db->where('id', $id)->delete('digital_educator');
+
+			$this->db->trans_complete();
+
+			if ($this->db->trans_status() === FALSE) {
+				throw new Exception('Database error');
+			}
+
+			$response['status'] = true;
+			$response['message'] = 'Educator deleted successfully';
+
+		} catch (Exception $e) {
+			$this->db->trans_rollback();
+			$response['message'] = $e->getMessage();
+		}
+
+		// Output without encoding
+		die(json_encode($response));
 	}
 	// Delete educator
 	public function deleteEducator($id)
@@ -762,9 +975,11 @@ class Pm extends CI_Controller
 			// Column mapping
 			$columns = [
 				'rm_name.id',
+				'rm_name.emp_id',
 				'rm_name.name',
 				'rm_name.username',
 				'zones.name',
+				'rm_name.password',
 			];
 			$orderBy = $columns[$orderColumn] ?? $columns[0];
 
@@ -800,6 +1015,8 @@ class Pm extends CI_Controller
 						'name' => $record->name,
 						'username' => $record->username,
 						'zone' => $record->zone_name,
+						'password' => $record->password,
+						'emp_id' => $record->emp_id,
 					];
 				}, $records)
 			];
@@ -831,7 +1048,8 @@ class Pm extends CI_Controller
         $required_fields = [
             'name' => 'name',
             'password' => 'password',
-            'zone_id' => 'zone_id'
+            'zone_id' => 'zone_id',
+			'emp_id'=>'emp_id'
         ];
 		
         $errors = [];
@@ -858,7 +1076,7 @@ class Pm extends CI_Controller
         $name = $educatorData['name'];
         $username = $this->generateUsername($name);
 		
-        $educatorData['password'] = password_hash($educatorData['password'], PASSWORD_DEFAULT);
+        // $educatorData['password'] = password_hash($educatorData['password'], PASSWORD_DEFAULT);
         
         // Add generated username and timestamp
         $educatorData['username'] = $username;
@@ -1109,6 +1327,10 @@ private function generateUsername($name)
 	{
 		$this->load->view('pm/assign-educator-view');
 	}
+	public function assigndigiEducatorView()
+	{
+		$this->load->view('pm/assign-digieducator-view');
+	}
 	public function assignHcpView()
 	{
 		$this->load->view('pm/assign-hcp-view');
@@ -1138,6 +1360,39 @@ private function generateUsername($name)
     // Update educator record
     $this->db->where('id', $educator_id);
     $result = $this->db->update('educator', $update_data);
+    // echo $result;die;
+    if ($result) {
+        $message = ($rm_id == NULL) 
+            ? 'Educator successfully unassigned from RM' 
+            : 'Educator successfully assigned to RM';
+        $this->jsonResponse(['success' => true, 'message' => $message]);
+    } else {
+        $this->jsonResponse(['success' => false, 'message' => 'Failed to assign educator']);
+    }
+}
+	public function pmassignDigitalEducatorPost()
+{
+	if (ob_get_contents()) ob_clean();
+    header('Content-Type: application/json');
+    header('Content-Encoding: identity');
+    $educator_id = $this->input->post('educator_id');
+    $rm_id = $this->input->post('rm_id');
+    
+    // Validate inputs
+    if (empty($educator_id)){
+        $this->jsonResponse(['success' => false, 'message' => 'Please select an educator']);
+        return;
+    }
+    
+    // Prepare update data
+    $update_data = [
+        'rm_id' => $rm_id == 0 ? NULL : $rm_id,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+    
+    // Update educator record
+    $this->db->where('id', $educator_id);
+    $result = $this->db->update('digital_educator', $update_data);
     // echo $result;die;
     if ($result) {
         $message = ($rm_id == NULL) 
@@ -2453,6 +2708,40 @@ private function generateUsername($name)
 public function analytics()
 {
 	$this->load->view('pm/analytics');
+}
+
+public function assigndigital()
+{
+	$this->load->view('pm/AssignDigital');
+}
+
+public function feedback()
+{
+	$this->load->view('pm/feedback');
+}
+public function feedbackform()
+{
+	$this->load->view('pm/feedbackform');
+}
+public function assign_digitaleducator_post()
+{
+    // Get the POST data
+    $patient_id = $this->input->post('patient_id',TRUE);
+    $digital_educator_id = $this->input->post('digital_educator_id',TRUE);
+
+    // Prepare the data array for update
+    $data = [
+        'digital_educator_id' => $digital_educator_id
+    ];
+	$this->db->where('id', $patient_id);
+	$update = $this->db->update('patient_inquiry_new', $data);
+	 if ($update) {
+                $this->session->set_flashdata('success', 'Assigned saved successfully!');
+            } else {
+                $this->session->set_flashdata('error', 'Failed to Assigned.');
+            }
+
+            redirect('Assign-digital-educator');
 }
 
 }

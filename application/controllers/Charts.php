@@ -42,7 +42,7 @@ private function jsonResponse($data) {
         // $user_id=$this->session->userdata('educator_id');
         $query = $this->db->query("
             SELECT 
-                MONTHNAME(date) as month, 
+                MONTHNAME(MIN(date)) as month, 
                 COUNT(*) as count 
             FROM patient_inquiry_new 
             WHERE date >= DATE_SUB(NOW(), INTERVAL 4 MONTH)
@@ -58,7 +58,7 @@ private function jsonResponse($data) {
         // echo $user_id;die;
         $query = $this->db->query("
             SELECT 
-                MONTHNAME(date) as month, 
+                MONTHNAME(MIN(date)) as month, 
                 COUNT(*) as count 
             FROM patient_inquiry_new pin
             LEFT JOIN educator e ON e.id=pin.educator_id
@@ -270,7 +270,7 @@ private function jsonResponse($data) {
             LEFT JOIN doctors_new h on pin.hcp_name=h.id
             LEFT JOIN educator e ON e.id=pin.educator_id
             LEFT JOIN rm_name rm ON rm.id=e.rm_id
-            WHERE rm.id=$user_id AND medicine is null
+            WHERE rm.id=$user_id AND medicine=''
             GROUP BY h.name
             ORDER BY h.name
         ");
@@ -283,15 +283,15 @@ private function jsonResponse($data) {
         $days = $this->input->get('days') ?: 5;
         
         $query = $this->db->query("
-            SELECT 
-                date,
-                AVG(CAST(SUBSTRING_INDEX(blood_pressure, '/', 1) AS UNSIGNED)) as systolic,
-            AVG(CAST(SUBSTRING_INDEX(blood_pressure, '/', -1) AS UNSIGNED)) as diastolic
-            FROM patient_inquiry_new
-            WHERE date >= DATE_SUB(NOW(), INTERVAL ? DAY) 
-            GROUP BY DATE(date)
-            ORDER BY date DESC LIMIT 10
-        ", [$days]);
+           SELECT 
+    DATE(date) as date,
+    AVG(CAST(SUBSTRING_INDEX(blood_pressure, '/', 1) AS UNSIGNED)) as systolic,
+    AVG(CAST(SUBSTRING_INDEX(blood_pressure, '/', -1) AS UNSIGNED)) as diastolic
+FROM patient_inquiry_new
+WHERE date >= DATE_SUB(NOW(), INTERVAL ? DAY)
+GROUP BY DATE(date)
+ORDER BY DATE(date) DESC
+LIMIT 10", [$days]);
         
         $data = $query->result_array();
         $this->jsonResponse(['success' => true, 'data' => $data]);

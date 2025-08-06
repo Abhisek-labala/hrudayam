@@ -37,6 +37,34 @@ include('header.php');
                 reportWindow.focus();
             }
         }
+        function openNewWindow2() {
+            // Get all the filter values
+            var zoneId = $('#zone').val() || '';
+            var rmId = $('#rm').val() || '';
+            var educatorId = $('#educator').val() || '';
+            var campId = $('#campId').val() || '';
+            var doctorId = $('#doctor').val() || '';
+            var fromDate = $('#from_date').val() || '';
+            var toDate = $('#to_date').val() || '';
+
+            // Construct the URL with all parameters
+            var url = '/Common/getEdcautorDailyTableReport?' +
+                'zoneId=' + encodeURIComponent(zoneId) +
+                '&rmId=' + encodeURIComponent(rmId) +
+                '&educatorId=' + encodeURIComponent(educatorId) +
+                '&campId=' + encodeURIComponent(campId) +
+                '&doctorId=' + encodeURIComponent(doctorId) +
+                '&fromDate=' + encodeURIComponent(fromDate) +
+                '&toDate=' + encodeURIComponent(toDate);
+
+            // Open a new window with the report URL
+            var reportWindow = window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+
+            // Focus the window if it exists
+            if (reportWindow) {
+                reportWindow.focus();
+            }
+        }
 
         function downloadExcel(file_name) {
             if (file_name) {
@@ -49,7 +77,7 @@ include('header.php');
         }
 
         function getPatientData() {
-            console.log('getPatientData call');
+            // console.log('getPatientData call');
 
             $('#PatientData').html('');
 
@@ -78,10 +106,10 @@ include('header.php');
 
             }
             if ($('#rm').length) {
-                var zonetype = $('#rm').prop('type');
+                var zonetype = $('#rbm').prop('type');
                 console.log('zonetype : ' + zonetype);
                 if (zonetype == 'text' || zonetype == 'hidden') {
-                    var rmId = $('#rm').val();
+                    var rmId = $('#rbm').val();
                 } else {
                     var rmId = $('#rm option:selected').val();
                 }
@@ -147,10 +175,11 @@ include('header.php');
             $.ajax({
                 url: '/Common/getEdcautorPatientTable',
                 type: 'POST',
-                data: { zoneId: zoneId, rmId: rmId, educatorId: educatorId, campId: campId, doctorId: doctorId, fromDate: fromDate, toDate: toDate },
+                //data: { educatorId: educatorId,doctorId: doctorId },
+                data: { zoneId: zoneId, rmId: rmId, educatorId: educatorId, doctorId: doctorId, fromDate: fromDate, toDate: toDate, campId: campId },
                 success: function (response) {
                     $('#PatientData').html(response);
-                    $('#myTable').DataTable({ searching: false, paging: false, info: false, "pageLength": 50 });
+                    $('#myTable').DataTable({ searching: true, paging: false, info: false, "pageLength": 50 });
                 },
                 error: function () {
                     console.log('error');
@@ -192,10 +221,8 @@ include('header.php');
 
                             <form action="Create-Educator-Post" name="createEducator" id="createEducator" method="post"
                                 enctype="multipart/form-data">
-                                <?php
-                                $rmId = $this->session->userdata('rm_id');
-                                ?>
-                                <input type='hidden' name='rm' id='rm' value='<?php echo $rmId ?>'>
+
+
 
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
@@ -213,6 +240,32 @@ include('header.php');
 
 
 
+                                <div class="mb-3 row">
+                                    <label class="col-form-label col-md-2">Zone</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="zone" id="zone">
+                                            <option value="" id=""> -- Select -- </option>
+                                            <?php
+                                            foreach ($zones as $jey => $zonesItem) {
+                                                $doctorId = $zonesItem['id'];
+                                                $doctorName = $zonesItem['name'];
+                                                ?>
+                                                <option value="<?php echo $doctorId ?>" id='doc_<?php echo $doctorId ?>'>
+                                                    <?php echo $doctorName ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label class="col-form-label col-md-2">Rm</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" name="rm" id="rm">
+                                            <option value="" id=""> -- Select -- </option>
+                                        </select>
+                                    </div>
+                                </div>
 
 
                                 <div class="mb-3 row">
@@ -232,7 +285,8 @@ include('header.php');
                                                 $educatorName = $educatorItem['first_name'];
                                                 ?>
                                                 <option value="<?php echo $educatorId ?>" id="e_<?php echo $educatorId ?>">
-                                                    <?php echo $educatorName ?> </option>
+                                                    <?php echo $educatorName ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -338,14 +392,47 @@ include('footer.php');
     getPatientData();
 
     $(document).ready(function () {
+        $('#zone').on('change', function () {
+            var zoneId = $(this).val();
+
+            // Clear existing RBM options
+            $('#rm').html('<option value=""> ---Select RM---- </option>');
+            //$('#abm').html('<option value=""> ---Select ABM---- </option>');
+            $('#educator').html('<option value="">---Select Educator---- </option>');
+            $('#campId').html('<option value=""> ---Select Camp---- </option>');
+            $('#doctor').html('<option value=""> ---Select HCP---- </option>');
+
+            if (zoneId !== '') {
+                getPatientData();
+                $.ajax({
+                    url: '/Common/getRmByZone', // backend PHP file
+                    type: 'POST',
+                    data: { zone_id: zoneId },
+                    success: function (response) {
+                        $('#rm').html(response);
+                    },
+                    error: function () {
+                        $('#rm').html('<option value="">-- Error Loading --</option>');
+                    }
+                });
+            } else {
+                $('#rm').html('<option value="">-- Select --</option>');
+            }
+        });
+    });
+
+
+
+    $(document).ready(function () {
         $('#rm').on('change', function () {
             var rmId = $(this).val();
 
             $('#campId').html('<option value=""> ---Select Camp---- </option>');
             $('#educator').html('<option value="">---Select Educator---- </option>');
             $('#doctor').html('<option value=""> ---Select HCP---- </option>');
-            getPatientData();
+
             if (rmId !== '') {
+                getPatientData();
                 $.ajax({
                     url: '/Common/getEducatorByRm', // backend PHP file
                     type: 'POST',
@@ -397,13 +484,13 @@ include('footer.php');
             //var educatorId = $(this).val();
             var campId = $(this).val();
             $('#PatientData').html('');
- var educatorId=$('#educator').val();
+
             $('#doctor').html('<option value=""> ---Select HCP---- </option>');
             getPatientData();
             $.ajax({
                 url: '/Common/getEdcautorDoctorsByCamp',
                 type: 'POST',
-                data: { campId: campId ,educatorId:educatorId},
+                data: { campId: campId },
                 success: function (response) {
                     $('#doctor').html(response);
                 },
@@ -413,37 +500,10 @@ include('footer.php');
                 }
             });
         });
+        $('#doctor').on('change', function () {
+            getPatientData();
+        });
     });
-    $('#doctor').on('change', function () {
-        getPatientData();
-    });
-
-    function loadEducator() {
-        var rmId = $('#rm').val();
-
-        $('#educator').html('<option value="">---Select Educator---- </option>');
-        $('#doctor').html('<option value=""> ---Select HCP---- </option>');
-        $('#campId').html('<option value=""> ---Select Camp---- </option>');
-
-        if (rmId !== '') {
-            $.ajax({
-                url: '/Common/getEducatorByRm', // backend PHP file
-                type: 'POST',
-                data: { rm_id: rmId },
-                success: function (response) {
-                    $('#educator').html(response);
-                    //getPatientData();
-                },
-                error: function () {
-                    $('#educator').html('<option value="">-- Error Loading --</option>');
-                }
-            });
-        } else {
-            $('#educator').html('<option value="">-- Select --</option>');
-        }
-    }
-
-    loadEducator();
 
 </script>
 

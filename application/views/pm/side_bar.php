@@ -27,6 +27,9 @@
                       <li> 
 							   <a href="<?php echo base_url();?>Pm-Create-RM"><span> RM</span></a>
 							</li>
+                     <li> 
+							   <a href="<?php echo base_url();?>Pm-Create-DE"><span> Digital Educator</span></a>
+							</li>
 
 							<!-- <li> 
 							<a href="<?php echo base_url();?>Create-Zone-Manager"> <span> CIPLA BRAND</span></a>
@@ -46,9 +49,12 @@
 							<li> 
 							<a href="<?php echo base_url();?>PM-Assign-HCP"><span>HCP</span></a>
 							</li>
-							<!-- <li> 
-							<a href="<?php echo base_url();?>Map-Educator-To-Doctor"><span>RM</span></a>
-							</li> -->
+							<li> 
+							<a href="<?php echo base_url();?>Assign-digital-educator"><span>Patient to Digital Educator</span></a>
+							</li>
+                      <li> 
+							<a href="<?php echo base_url();?>PM-Assign-digital-educator-Rm"><span>Digital Educator to RM</span></a>
+							</li>
 						</ul>
 					</li>
 
@@ -76,6 +82,9 @@
 					
 				<li> 
                   <a href="<?php echo base_url();?>pm-Analytics"><i class="fa fa-user"></i> <span>Analytics</span></a>
+               </li>
+				<li> 
+                  <a href="<?php echo base_url();?>pm-feedback"><i class="fa fa-ticket"></i> <span>Feedbacks</span></a>
                </li>
             
 			   <li> 

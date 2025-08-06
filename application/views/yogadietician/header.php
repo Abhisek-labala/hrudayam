@@ -4,8 +4,8 @@ include('head.php');
 <div class="header">
 
 <?php 
-$id = $this->session->userdata('rm_id');
-$query = "SELECT * FROM `rm_name` WHERE `id`='".$id."'";
+$id = $this->session->userdata('digital_educator_id');
+$query = "SELECT * FROM `digital_educator` WHERE `id`='".$id."'";
 $profilelData 	=  $this->master_model->customQueryRow($query);
 //pr($profilelData);
 //die();
@@ -134,13 +134,13 @@ $profilelData 	=  $this->master_model->customQueryRow($query);
 								<img src="<?php  echo $profileImage?>" alt="User Image" class="avatar-img rounded-circle">
 							</div>
 							<div class="user-text">
-								<h6><?php echo $profilelData->name?></h6>
-								<p class="text-muted mb-0">RM</p>
+								<h6><?php echo $profilelData->first_name.' '.$profilelData->last_name?></h6>
+								<p class="text-muted mb-0">Digital Educator</p>
 							</div>
 						</div>
 						<!-- <a class="dropdown-item" href="profile.html">My Profile</a>
 						<a class="dropdown-item" href="settings.html">Settings</a> -->
-						<a class="dropdown-item" href="<?php echo base_url()?>/RM-logout">Logout</a> 
+						<a class="dropdown-item" href="<?php echo base_url()?>/Digital-Educator-logout">Logout</a> 
 					</div>
 				</li>
 				<!-- /User Menu -->

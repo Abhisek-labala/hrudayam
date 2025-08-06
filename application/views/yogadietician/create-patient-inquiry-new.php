@@ -54,7 +54,7 @@
                if (doctorId !== '') {
                   // checkactivecamp();
                   $.ajax({
-                     url: '/Educator/getHCLDetails',  // backend PHP file
+                     url: '/DigitalEducator/getHCLDetails',  // backend PHP file
                      type: 'POST',
                      data: { doctor_id: doctorId },
                      dataType: 'json',
@@ -178,19 +178,7 @@
             <?php
             include('alerts.php');
             ?>
-
-            <?php
-            $educatorId = $this->session->userdata('educator_id');
-            $getStartCampDetailsByeducatord = getStartCampDetailsByeducatord($educatorId);
-            ///pr($getStartCampDetailsByeducatord);
-   //die();
-            
-            $campData = $getStartCampDetailsByeducatord['campData'];
-            $campId = $campData->id;
-            $campNameId = 'Camp ' . $campData->camp_id;
-            ?>
-
-            <form action="Patient-Inquiry-Post" name="createPatientInquiry" id="createPatientInquiry" method="post"
+            <form action="DigitalEducator-Patient-Inquiry-Post" name="createPatientInquiry" id="createPatientInquiry" method="post"
                enctype="multipart/form-data">
                <input type="hidden" name='campId' id='campId' value='<?php echo $campId ?>'>
 
@@ -208,8 +196,8 @@
                                  <select class="form-select form-control" name="hcp_name" id="hcp_name" required>
                                     <option selected="selected" value="">-- Select --</option>
                                     <?php
-                                    $educatorId = $this->session->userdata('educator_id');
-                                    $query = "SELECT * FROM `doctors_new` WHERE `educator_id` ='" . $educatorId . "' And `name`!='' ORDER BY `name`";
+                                    $educatorId = $this->session->userdata('digital_educator_id');
+                                    $query = "SELECT * FROM `doctors_new` WHERE `name`!='' ORDER BY `name`";
                                     $educatorDoctor = $this->master_model->customQueryArray($query);
                                     if ($educatorDoctor) {
                                        foreach ($educatorDoctor as $jey => $doctorItem) {

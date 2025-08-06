@@ -32,8 +32,8 @@ include('header.php');
 						<div class="card-body">
 
 							<?php
-							$digital_educator_id = $this->session->userdata('digital_educator_id');
-							$EducatorPatient = getDigitalEducatorPatient($digital_educator_id);
+							// $digital_educator_id = $this->session->userdata('digital_educator_id');
+							$EducatorPatient = getpatientlistdata2();
 							// pr($EducatorPatient);
 							$EducatorPatientList = $EducatorPatient['EducatorPatient'];
 							?>
@@ -43,12 +43,12 @@ include('header.php');
 									<tr>
 										<th>Sr </th>
 										<th>Educator Name</th>
+										<th>Digital Educator Name </th>
 										<th>Name</th>
-										<th>Mobile Number</th>
 										<th>Gender</th>
 										<th>Age</th>
-										<th>Weight</th>
 										<th>Height</th>
+										<th>Weight</th>
 										<th>Doctor Name</th>
 										<th>Cipla Brand Prescribed</th>
 										<th>Date</th>
@@ -79,10 +79,10 @@ include('header.php');
 
 										$date = $PatientItem['date'];
 										$id = $PatientItem['id'];
-										$educator_name = $PatientItem['educator_name'];
 										$name = $PatientItem['patient_name'];
-										$mobile = $PatientItem['mobile_number'];
 										$age = $PatientItem['age'];
+										$educator_name=$PatientItem['educator_name'];
+										$digital_educator_name=$PatientItem['digital_educator_name'];
 										$gender = $PatientItem['gender'];
 										$patientId = $PatientItem['id'];
 										$doctorId = $PatientItem['doctor_id'];
@@ -119,8 +119,8 @@ include('header.php');
 										<tr>
 											<td><?php echo $sr; ?></td>
 											<td><?php echo $educator_name; ?></td>
+											<td><?php echo $digital_educator_name; ?></td>
 											<td><?php echo $name; ?></td>
-											<td><?php echo $mobile; ?></td>
 											<td><?php echo $gender; ?></td>
 											<td><?php echo $age; ?></td>
 											<td><?php echo $height; ?></td>
@@ -157,7 +157,7 @@ include('footer.php');
 ?>
 <script>
 	function openform($id) {
-    window.location.href = 'Digital-educator-follow-up-form?patient_id=' + $id;
+    window.location.href = 'mis-feedbackform?patient_id=' + $id;
 }
 
 </script>

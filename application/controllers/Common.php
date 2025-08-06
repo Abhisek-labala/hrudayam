@@ -114,7 +114,7 @@ class Common extends CI_Controller {
 
 		if (isset($_POST['campId'])) {
 			
-			// $educatorId = $_POST['value'];
+			$educatorId = $_POST['educatorId'];
 			// $doctorsData = getDoctorByEducator($educatorId);
 			// $doctorsData = $doctorsData['doctorsData'];
 
@@ -126,15 +126,16 @@ class Common extends CI_Controller {
 			//$query = "SELECT * FROM `patient_inquiry_new` WHERE `camp_id`='".$campId."'";		
 			//$doctorsData = $this->master_model->customQueryArray($query);
 
-			
 			if($educatorId!='all'){
-				$query = "SELECT * FROM `doctors_new` WHERE educator_id='".$educatorId."' And And `name`!='' ORDER BY `name`";
+                $query = "SELECT * FROM `doctors_new` WHERE educator_id='".$educatorId."'  And `name`!='' ORDER BY `name`";
+                // echo $query;die;
 			}else{
 				$query = "SELECT * FROM `doctors_new` WHERE `name`!='' ORDER BY `name`";
 			}
 
-			$query = "SELECT * FROM `doctors_new` WHERE id IN (SELECT `hcp_name` FROM `patient_inquiry_new` WHERE `camp_id`='".$campId."') ORDER BY `name`";
-			$doctorsData = $this->master_model->customQueryArray($query);
+			// $query = "SELECT * FROM `doctors_new` WHERE id IN (SELECT `hcp_name` FROM `patient_inquiry_new` WHERE `camp_id`='".$campId."' AND `educator_id`= '".$educatorId."') ORDER BY `name`";
+			// echo $query;die;
+            $doctorsData = $this->master_model->customQueryArray($query);
 			
 			?>
 
@@ -177,9 +178,8 @@ class Common extends CI_Controller {
 			// }else{
 			// 	$query = "SELECT * FROM `camp` WHERE edcator_id='".$educatorId."' And `date`='".$date."' ORDER BY `id`";
 			// }
-			$query = "SELECT * FROM `camp` WHERE edcator_id='".$educatorId."' And `date`BETWEEN '$fromDate' AND '$toDate' group by camp_id";
+			$query = "SELECT camp_id  FROM `camp` WHERE edcator_id='".$educatorId."' And `date`BETWEEN '$fromDate' AND '$toDate' group by camp_id";
 			$doctorsData = $this->master_model->customQueryArray($query);
-			
 			?>
 
 			<option value="" id=""> ---Select---- </option>
@@ -338,7 +338,7 @@ public function getEdcautorPatientTable() {
     }
     
     // Add sorting
-    $query .= " ORDER BY pin.`patient_name`";
+    $query .= " AND `patient_name`!='' ORDER BY pin.`patient_name`";
     
     // Execute query
     $patientData = $this->master_model->customQueryArray($query);
@@ -353,12 +353,13 @@ public function getEdcautorPatientTable() {
                 <th>Sr</th>
                 <th>Date</th>
                 <th>Patient Name</th>
+                <th>Mobile Number</th>
                 <th>Gender</th>
                 <th>Blood Pressure</th>
                 <th>BMI</th>
                 <th>Educator Name</th>
                 <th>RM Name</th>
-                <th>City</th>			
+                <th>City</th>					
         </tr>
         </thead>
         <tbody>
@@ -408,7 +409,7 @@ public function getEdcautorPatientTable() {
         }else{				
             $city= $citiesDataIdWise[$cityId]['city_name'];
         }
-        
+        $id=$item['id'];
         
         $excelData[$sr]= array($sr,$item['date'],$item['patient_name'],$genderString,$item['blood_pressure'],$item['bmi'], $educatorName,$rmName,$city);
         ?>
@@ -416,14 +417,14 @@ public function getEdcautorPatientTable() {
             <td><?php echo $sr;?></td>		
             <td> <?php echo $item['date']?> </td>
             <td><?php echo $item['patient_name']?></td>
+            <td><?php echo $item['mobile_number']?></td>
             <td><?php echo $genderString;?></td>
             <td><?php echo $item['blood_pressure']?></td>
             <td><?php echo $item['bmi']?></td>
             <td><?php echo $educatorName; ?></td>
             <td><?php echo $rmName;?></td>
             <td><?php echo $city?></td>	
-            
-                		
+
         
         </tr>        
         <?php $sr++; } ?> 
@@ -457,10 +458,11 @@ public function getEdcautorPatientTableReport() {
     $query = "SELECT 
 	 e.first_name AS educator_name,
      e.emp_id AS emp_id,
+     f.camp_id AS camp,
     rm.name AS rm_name,
     pin.msl_code,
 	dn.name AS doctor_name,
-    c.city_name AS city_name,
+    pin.city AS city_name,
     pin.speciality,
     sl.state AS state_name,
     pin.patient_name,
@@ -532,12 +534,16 @@ public function getEdcautorPatientTableReport() {
     pin.Compititor,
     pin.consent_form_file,
     pin.cipla_brand_prescribed,
+    pin.cipla_brand_prescribed_no_option,
+    pin.prescription_available,
+    pin.purchase_bill,
     pin.date
 FROM `patient_inquiry_new` pin 
+LEFT JOIN `camp` f on f.id = pin.camp_id
 LEFT JOIN `educator` e ON pin.educator_id = e.id 
 LEFT JOIN `doctors_new` dn ON dn.id = pin.hcp_name 
 LEFT JOIN `rm_name` rm ON e.rm_id = rm.id
-LEFT JOIN `all_cities` c ON pin.city = c.id OR pin.city = c.city_code
+-- LEFT JOIN `all_cities` c ON pin.city = c.id OR pin.city = c.city_code
 LEFT JOIN `state_list` sl ON sl.id = pin.state
 WHERE ";
 			//   echo $query;die;
@@ -558,7 +564,7 @@ WHERE ";
         $query .= " pin.`hcp_name`='$doctorId' AND";
     }
     
-    $query .= " pin.`date` BETWEEN '$fromDate' AND '$toDate' ORDER BY pin.`date` ;";
+    $query .= " `patient_name`!='' AND pin.`date` BETWEEN '$fromDate' AND '$toDate' ORDER BY pin.`date` ;";
     // echo $query;die;
     $patientData = $this->master_model->customQueryArray($query);
     
@@ -566,6 +572,7 @@ WHERE ";
     $data['patientData'] = $patientData;
     $data['fromDate'] = $fromDate;
     $data['toDate'] = $toDate;
+    $data['uploads_url'] = base_url('uploads/'); 
     $this->load->view('patient_report_view', $data);
 }
 public function getEdcautorDailyTableReport() {

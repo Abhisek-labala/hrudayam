@@ -53,7 +53,8 @@ include('side_bar.php');
 			<th>Doctor Name</th>  
 			<th>Cipla Brand Prescribed</th>  
 			<th>Camp</th>			
-			<th>Date</th>                                         
+			<th>Date</th>
+			<th>Actions</th>                                         
                     </tr>
                     </thead>
                     <tbody>
@@ -119,8 +120,8 @@ include('side_bar.php');
                      <td><?php echo $name;?></td> 
 					 <td><?php echo $gender;?></td>
                     <td><?php echo $age;?></td>                                 
-                    <td><?php echo $height;?></td>                                 
                     <td><?php echo $weight;?></td>                                 
+                    <td><?php echo $height;?></td>                                 
                     <!-- <td><?php echo $waist_circumference;?></td>                                 
                     <td><?php echo $bmi;?></td>                                 
                     <td><?php echo $wh_ratio;?></td>                                 -->
@@ -129,7 +130,8 @@ include('side_bar.php');
                     <td><?php echo $doctorName;?></td>                                  
                     <td><?php echo $brand;?></td> 
 					<td>Camp <?php echo $campName;?></td>                                   
-                    <td><?php echo $date;?></td>                                  
+                    <td><?php echo $date;?></td>  
+					<td><button class="btn btn-success" onclick="openform(<?php echo $patientId;?>);">View Form</button></td>                                
                     </tr>        
                     <?php $sr++; } ?>        
                     </tbody>
@@ -150,3 +152,9 @@ include('side_bar.php');
 		<?php
 include('footer.php');
 ?>
+<script>
+	function openform($patientId) {
+    window.location.href = 'educator-follow-up-form?patient_id=' + $patientId;
+}
+
+</script>

@@ -34,18 +34,21 @@ include('side_bar.php');
 									
                                     
                                     <div class="mb-3 row">
-										<label class="col-form-label col-md-2">Current Password</label>
-										<div class="col-md-10">
-											<input type="password" maxlength="12" class="form-control" name="currentPassword" id="currentPassword" required>
-										</div>
-									</div>
-                                    
-                                    <div class="mb-3 row">
-										<label class="col-form-label col-md-2">New Password</label>
-										<div class="col-md-10">
-											<input type="password" maxlength="12" class="form-control" name="newPassword" id="newPassword" required>
-										</div>
-									</div>
+    <label class="col-form-label col-md-2">Current Password</label>
+    <div class="col-md-10 position-relative">
+        <input type="password" maxlength="12" class="form-control" name="currentPassword" id="currentPassword" required>
+        <span class="toggle-password" data-target="currentPassword" style="position:absolute; right:15px; top:10px; cursor:pointer;">👁️</span>
+    </div>
+</div>
+
+<div class="mb-3 row">
+    <label class="col-form-label col-md-2">New Password</label>
+    <div class="col-md-10 position-relative">
+        <input type="password" maxlength="12" class="form-control" name="newPassword" id="newPassword" required>
+        <span class="toggle-password" data-target="newPassword" style="position:absolute; right:15px; top:10px; cursor:pointer;">👁️</span>
+    </div>
+</div>
+
                                     
                                     
                                     
@@ -103,4 +106,15 @@ function ChangePassword() {
 
     return true; // All validations passed
 }
+document.querySelectorAll('.toggle-password').forEach(function (eyeIcon) {
+    eyeIcon.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (input) {
+            input.type = input.type === 'password' ? 'text' : 'password';
+            this.textContent = input.type === 'password' ? '👁️' : '🙈';
+        }
+    });
+});
+
 </script>

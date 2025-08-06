@@ -77,7 +77,7 @@ include('header.php');
         }
 
         function getPatientData() {
-            console.log('getPatientData call');
+            // console.log('getPatientData call');
 
             $('#PatientData').html('');
 
@@ -179,7 +179,7 @@ include('header.php');
                 data: { zoneId: zoneId, rmId: rmId, educatorId: educatorId, doctorId: doctorId, fromDate: fromDate, toDate: toDate, campId: campId },
                 success: function (response) {
                     $('#PatientData').html(response);
-                    $('#myTable').DataTable({ searching: false, paging: false, info: false, "pageLength": 50 });
+                    $('#myTable').DataTable({ searching: true, paging: false, info: false, "pageLength": 50 });
                 },
                 error: function () {
                     console.log('error');
@@ -484,13 +484,14 @@ include('footer.php');
             //var educatorId = $(this).val();
             var campId = $(this).val();
             $('#PatientData').html('');
+            var educatorId=$('#educator').val();
 
             $('#doctor').html('<option value=""> ---Select HCP---- </option>');
             getPatientData();
             $.ajax({
                 url: '/Common/getEdcautorDoctorsByCamp',
                 type: 'POST',
-                data: { campId: campId },
+                data: { campId: campId ,educatorId:educatorId},
                 success: function (response) {
                     $('#doctor').html(response);
                 },

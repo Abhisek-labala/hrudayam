@@ -554,55 +554,55 @@ include('header.php');
                 }
                 ?>
                 <div class="form-container">
-                    <h1 class="form-title">✅ Patient Follow-up Form</h1>
+                    <h1 class="form-title">✅  Patient Follow-up Form</h1>
                     <ul class="nav nav-tabs" id="followUpTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="day3-tab" data-bs-toggle="tab" data-bs-target="#day3"
                                 type="button" role="tab">Day 3</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day3_data_exists ?  '' :'disabled text-muted' ; ?>" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7"
-                                type="button" role="tab" <?php echo $day3_data_exists ? '' :'disabled' ; ?>>Day 7</button>
+                            <button class="nav-link" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7"
+                                type="button" role="tab">Day 7</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day7_data_exists ?  '' :'disabled text-muted' ; ?>" id="day15-tab" data-bs-toggle="tab" data-bs-target="#day15"
-                                type="button" role="tab" <?php echo $day7_data_exists ? '' :'disabled' ; ?>>Day 15</button>
+                            <button class="nav-link" id="day15-tab" data-bs-toggle="tab" data-bs-target="#day15"
+                                type="button" role="tab">Day 15</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day15_data_exists ?  '' :'disabled text-muted' ; ?>" id="day30-tab" data-bs-toggle="tab" data-bs-target="#day30"
-                                type="button" role="tab" <?php echo $day15_data_exists ? '' :'disabled' ; ?>>Day 30</button>
+                            <button class="nav-link" id="day30-tab" data-bs-toggle="tab" data-bs-target="#day30"
+                                type="button" role="tab">Day 30</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day30_data_exists ?  '' :'disabled text-muted' ; ?>" id="day45-tab" data-bs-toggle="tab" data-bs-target="#day45"
-                                type="button" role="tab" <?php echo $day30_data_exists ? '' :'disabled' ; ?>>Day 45</button>
+                            <button class="nav-link" id="day45-tab" data-bs-toggle="tab" data-bs-target="#day45"
+                                type="button" role="tab">Day 45</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day45_data_exists ?  '' :'disabled text-muted' ; ?>" id="day60-tab" data-bs-toggle="tab" data-bs-target="#day60"
-                                type="button" role="tab" <?php echo $day45_data_exists ? '' :'disabled' ; ?>>Day 60</button>
+                            <button class="nav-link" id="day60-tab" data-bs-toggle="tab" data-bs-target="#day60"
+                                type="button" role="tab">Day 60</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day60_data_exists ?  '' :'disabled text-muted' ; ?>" id="day90-tab" data-bs-toggle="tab" data-bs-target="#day90"
-                                type="button" role="tab" <?php echo $day60_data_exists ? '' :'disabled' ; ?>>Day 90</button>
+                            <button class="nav-link" id="day90-tab" data-bs-toggle="tab" data-bs-target="#day90"
+                                type="button" role="tab">Day 90</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day90_data_exists ?  '' :'disabled text-muted' ; ?>" id="day120-tab" data-bs-toggle="tab" data-bs-target="#day120"
-                                type="button" role="tab" <?php echo $day90_data_exists ? '' :'disabled' ; ?>>Day 120</button>
+                            <button class="nav-link" id="day120-tab" data-bs-toggle="tab" data-bs-target="#day120"
+                                type="button" role="tab">Day 120</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day120_data_exists ?  '' :'disabled text-muted' ; ?>" id="day150-tab" data-bs-toggle="tab" data-bs-target="#day150"
-                                type="button" role="tab" <?php echo $day120_data_exists ? '' :'disabled' ; ?>>Day 150</button>
+                            <button class="nav-link" id="day150-tab" data-bs-toggle="tab" data-bs-target="#day150"
+                                type="button" role="tab">Day 150</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day150_data_exists ?  '' :'disabled text-muted' ; ?>" id="day180-tab" data-bs-toggle="tab" data-bs-target="#day180"
-                                type="button" role="tab" <?php echo $day150_data_exists ? '' :'disabled' ; ?>>Day 180</button>
+                            <button class="nav-link" id="day180-tab" data-bs-toggle="tab" data-bs-target="#day180"
+                                type="button" role="tab">Day 180</button>
                         </li>
                     </ul>
 
                     <div class="tab-content" id="followUpTabsContent">
                         <div class="tab-pane fade show active" id="day3" role="tabpanel" aria-labelledby="day3-tab">
-                            <form id="day3form" method="POST" action="Digital-educator-follow-up-form-post">
+                            <form id="day3form">
                                 <div class="form-section">
-                                    <h2 class="section-title">📞 Day 3 Follow-up</h2>
+                                    <h2 class="section-title">✅  Day 3 Follow-up</h2>
 
                                     <input type="hidden" name="day" value="3">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
@@ -621,7 +621,7 @@ include('header.php');
                                         </div>
                                         <span id="day3_meds_reason"
                                             style="display: <?php echo ($day3_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day3_meds_reason"
+                                            ? Reason: <input type="text" name="day3_meds_reason"
                                                 value="<?php echo htmlspecialchars($day3_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -645,7 +645,7 @@ include('header.php');
                                                 </div>
                                                 <span id="day3_sugar_reason"
                                                     style="display: <?php echo ($day3_sugar === 'No') ? 'inline' : 'none'; ?>;">
-                                                    → Reason: <input type="text" name="day3_sugar_reason"
+                                                    ? Reason: <input type="text" name="day3_sugar_reason"
                                                         value="<?php echo htmlspecialchars($day3_sugar_reason); ?>"
                                                         class="form-control form-control-sm d-inline form-text-input">
                                                 </span>
@@ -665,7 +665,7 @@ include('header.php');
                                                 </div>
                                                 <span id="day3_bp_reason"
                                                     style="display: <?php echo ($day3_bp === 'No') ? 'inline' : 'none'; ?>;">
-                                                    → Reason: <input type="text" name="day3_bp_reason"
+                                                    ? Reason: <input type="text" name="day3_bp_reason"
                                                         value="<?php echo htmlspecialchars($day3_bp_reason); ?>"
                                                         class="form-control form-control-sm d-inline form-text-input">
                                                 </span>
@@ -685,7 +685,7 @@ include('header.php');
                                                 </div>
                                                 <span id="day3_fluid_reason"
                                                     style="display: <?php echo ($day3_fluid === 'No') ? 'inline' : 'none'; ?>;">
-                                                    → Reason: <input type="text" name="day3_fluid_reason"
+                                                    ? Reason: <input type="text" name="day3_fluid_reason"
                                                         value="<?php echo htmlspecialchars($day3_fluid_reason); ?>"
                                                         class="form-control form-control-sm d-inline form-text-input">
                                                 </span>
@@ -755,8 +755,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_3 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_3 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_3 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_3 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_3 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -791,21 +791,14 @@ include('header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center mt-4">
-                                    <button type="submit"
-                                        class="btn btn-primary <?php echo $day3_data_exists ? 'btn-disabled' : ''; ?>"
-                                        <?php echo $day3_data_exists ? 'disabled' : ''; ?>>
-                                        <?php echo $day3_data_exists ? 'Already Submitted' : 'Submit Day 3 Follow-up'; ?>
-                                    </button>
-                                </div>
                             </form>
                         </div>
 
                         <div class="tab-pane fade" id="day7" role="tabpanel" aria-labelledby="day7-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🧘 Day 7 Follow-up</h2>
+                                <h2 class="section-title">✅  Day 7 Follow-up</h2>
 
-                                <form id="day7form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day7form">
                                     <input type="hidden" name="day" value="7">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -823,7 +816,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_meds_reason"
                                             style="display: <?php echo ($day7_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day7_meds_reason"
+                                            ? Reason: <input type="text" name="day7_meds_reason"
                                                 value="<?php echo htmlspecialchars($day7_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -844,7 +837,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_doctor_reason"
                                             style="display: <?php echo ($day7_doctor === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day7_doctor_reason"
+                                            ? Reason: <input type="text" name="day7_doctor_reason"
                                                 value="<?php echo htmlspecialchars($day7_doctor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -860,7 +853,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_bp_value"
                                             style="display: <?php echo ($day7_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → BP: <input type="text" name="day7_bp_value"
+                                            ? BP: <input type="text" name="day7_bp_value"
                                                 value="<?php echo htmlspecialchars($day7_bp_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -871,7 +864,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_bp_remarks"
                                             style="display:<?php echo ($day7_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Remarks: <input type="text" name="day7_bp_remarks"
+                                            ? Remarks: <input type="text" name="day7_bp_remarks"
                                                 value="<?php echo htmlspecialchars($day7_bp_remarks); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -934,7 +927,7 @@ include('header.php');
                                             <label class="form-check-label" for="day7_yoga_schedule_no">No</label>
                                         </div>
                                         <span id="day7_yoga_schedule_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day7_yoga_schedule_reason"
+                                            ? Reason: <input type="text" name="day7_yoga_schedule_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -956,7 +949,7 @@ include('header.php');
                                             </div>
                                             <span id="day7_yoga_difficult_reason"
                                                 style="display:<?php echo ($day7_yoga_difficult === 'Yes') ? 'inline' : 'none'; ?>;">
-                                                → Reason: <input type="text" name="day7_yoga_difficult_reason"
+                                                ? Reason: <input type="text" name="day7_yoga_difficult_reason"
                                                     value="<?php echo htmlspecialchars($day7_yoga_difficult_reason); ?>"
                                                     class="form-control form-control-sm d-inline form-text-input">
                                             </span>
@@ -976,7 +969,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_yoga_planned_date"
                                             style="display: <?php echo ($day7_yoga_required === 'Yes') ? 'inline' : 'none'; ?>">
-                                            → Planned date: <input type="text" name="day7_yoga_planned_date"
+                                            ? Planned date: <input type="text" name="day7_yoga_planned_date"
                                                 value="<?php echo htmlspecialchars($day7_yoga_planned_date); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -987,7 +980,7 @@ include('header.php');
                                         </div>
                                         <span id="day7_yoga_required_reason"
                                             style="display: <?php echo ($day7_yoga_required === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day7_yoga_required_reason"
+                                            ? Reason: <input type="text" name="day7_yoga_required_reason"
                                                 value="<?php echo htmlspecialchars($day7_yoga_required_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1022,8 +1015,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_7 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_7 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_7 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_7 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_7 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -1057,21 +1050,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day7_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day7_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day7_data_exists ? 'Already Submitted' : 'Submit Day 7 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="day15" role="tabpanel" aria-labelledby="day15-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 15 Follow-up</h2>
-                                <form id="day15form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 15 Follow-up</h2>
+                                <form id="day15form">
                                     <input type="hidden" name="day" value="15">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1089,7 +1075,7 @@ include('header.php');
                                         </div>
                                         <span id="day15_meds_reason"
                                             style="display:  <?php echo ($day15_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day15_meds_reason"
+                                            ? Reason: <input type="text" name="day15_meds_reason"
                                                 value="<?php echo htmlspecialchars($day15_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1109,7 +1095,7 @@ include('header.php');
                                         </div>
                                         <span id="day15_meds_stock"
                                             style="display:  <?php echo ($day15_stock === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Please get a refill or consult your doctor.
+                                            ? Please get a refill or consult your doctor.
 
                                         </span>
                                     </div>
@@ -1134,7 +1120,7 @@ include('header.php');
                                         <div class="form-check form-check-inline checkbox-item">
                                             <input class="form-check-input" type="radio" name="day15_bp"
                                                 id="day15_bp_yes" value="Yes" <?php echo ($day15_bp === 'Yes') ? 'checked' : ''; ?>>
-                                            <label class="form-check-label" for="day15_bp_yes">Yes→ BP:</label>
+                                            <label class="form-check-label" for="day15_bp_yes">Yes? BP:</label>
                                         </div>
                                         <span id="day15_bp_value"
                                             style="display:  <?php echo ($day15_bp === 'Yes') ? 'inline' : 'none'; ?>;">
@@ -1166,7 +1152,7 @@ include('header.php');
                                             <label class="form-check-label" for="day15_rbs_yes">Yes</label>
                                         </div>
                                         <span id="day15_rbs_value" style="display: inline;">
-                                            → <input type="text" name="day15_rbs_value"
+                                            ? <input type="text" name="day15_rbs_value"
                                                 value="<?php echo htmlspecialchars($day15_rbs_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                             mg/dL
@@ -1177,7 +1163,7 @@ include('header.php');
                                             <label class="form-check-label" for="day15_rbs_no">No</label>
                                         </div>
                                         <span id="day15_rbs_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day15_rbs_reason"
+                                            ? Reason: <input type="text" name="day15_rbs_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -1276,7 +1262,7 @@ include('header.php');
                                         </div>
                                         <span id="day15_yoga_reason"
                                             style="display: <?php echo ($day15_yoga === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day15_yoga_reason"
+                                            ? Reason: <input type="text" name="day15_yoga_reason"
                                                 value="<?php echo htmlspecialchars($day15_yoga_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1311,8 +1297,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_15 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_15 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_15 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_15 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_15 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -1346,21 +1332,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day15_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day15_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day15_data_exists ? 'Already Submitted' : 'Submit Day 15 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="day30" role="tabpanel" aria-labelledby="day30-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 30 Follow-up</h2>
-                                <form id="day30form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 30 Follow-up</h2>
+                                <form id="day30form">
                                     <input type="hidden" name="day" value="30">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1378,7 +1357,7 @@ include('header.php');
                                         </div>
                                         <span id="day30_meds_reason"
                                             style="display:  <?php echo ($day30_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day30_meds_reason"
+                                            ? Reason: <input type="text" name="day30_meds_reason"
                                                 value="<?php echo htmlspecialchars($day30_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1398,7 +1377,7 @@ include('header.php');
                                         </div>
                                         <span id="day30_meds_stock"
                                             style="display:  <?php echo ($day30_stock === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Please get a refill or consult your doctor.
+                                            ? Please get a refill or consult your doctor.
 
                                         </span>
                                     </div>
@@ -1423,7 +1402,7 @@ include('header.php');
                                         <div class="form-check form-check-inline checkbox-item">
                                             <input class="form-check-input" type="radio" name="day30_bp"
                                                 id="day30_bp_yes" value="Yes" <?php echo ($day30_bp === 'Yes') ? 'checked' : ''; ?>>
-                                            <label class="form-check-label" for="day30_bp_yes">Yes→ BP:</label>
+                                            <label class="form-check-label" for="day30_bp_yes">Yes? BP:</label>
                                         </div>
                                         <span id="day30_bp_value"
                                             style="display:  <?php echo ($day30_bp === 'Yes') ? 'inline' : 'none'; ?>;">
@@ -1455,7 +1434,7 @@ include('header.php');
                                             <label class="form-check-label" for="day30_rbs_yes">Yes</label>
                                         </div>
                                         <span id="day30_rbs_value" style="display: inline;">
-                                            → <input type="text" name="day30_rbs_value"
+                                            ? <input type="text" name="day30_rbs_value"
                                                 value="<?php echo htmlspecialchars($day30_rbs_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                             mg/dL
@@ -1466,7 +1445,7 @@ include('header.php');
                                             <label class="form-check-label" for="day30_rbs_no">No</label>
                                         </div>
                                         <span id="day30_rbs_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day30_rbs_reason"
+                                            ? Reason: <input type="text" name="day30_rbs_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -1565,7 +1544,7 @@ include('header.php');
                                         </div>
                                         <span id="day30_yoga_reason"
                                             style="display: <?php echo ($day30_yoga === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day30_yoga_reason"
+                                            ? Reason: <input type="text" name="day30_yoga_reason"
                                                 value="<?php echo htmlspecialchars($day30_yoga_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1600,8 +1579,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_30 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_30 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_30 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_30 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_30 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -1635,21 +1614,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day30_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day30_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day30_data_exists ? 'Already Submitted' : 'Submit Day 30 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="day45" role="tabpanel" aria-labelledby="day45-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 45 Follow-up</h2>
-                                <form id="day45form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 45 Follow-up</h2>
+                                <form id="day45form">
                                     <input type="hidden" name="day" value="45">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1667,7 +1639,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_meds_reason"
                                             style="display: <?php echo ($day45_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day45_meds_reason"
+                                            ? Reason: <input type="text" name="day45_meds_reason"
                                                 value="<?php echo htmlspecialchars($day45_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1688,7 +1660,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_doctor_reason"
                                             style="display: <?php echo ($day45_doctor === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day45_doctor_reason"
+                                            ? Reason: <input type="text" name="day45_doctor_reason"
                                                 value="<?php echo htmlspecialchars($day45_doctor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1704,7 +1676,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_bp_value"
                                             style="display: <?php echo ($day45_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → BP: <input type="text" name="day45_bp_value"
+                                            ? BP: <input type="text" name="day45_bp_value"
                                                 value="<?php echo htmlspecialchars($day45_bp_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1715,7 +1687,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_bp_remarks"
                                             style="display:<?php echo ($day45_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Remarks: <input type="text" name="day45_bp_remarks"
+                                            ? Remarks: <input type="text" name="day45_bp_remarks"
                                                 value="<?php echo htmlspecialchars($day45_bp_remarks); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1778,7 +1750,7 @@ include('header.php');
                                             <label class="form-check-label" for="day45_yoga_schedule_no">No</label>
                                         </div>
                                         <span id="day45_yoga_schedule_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day45_yoga_schedule_reason"
+                                            ? Reason: <input type="text" name="day45_yoga_schedule_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -1800,7 +1772,7 @@ include('header.php');
                                             </div>
                                             <span id="day45_yoga_difficult_reason"
                                                 style="display:<?php echo ($day45_yoga_difficult === 'Yes') ? 'inline' : 'none'; ?>;">
-                                                → Reason: <input type="text" name="day45_yoga_difficult_reason"
+                                                ? Reason: <input type="text" name="day45_yoga_difficult_reason"
                                                     value="<?php echo htmlspecialchars($day45_yoga_difficult_reason); ?>"
                                                     class="form-control form-control-sm d-inline form-text-input">
                                             </span>
@@ -1820,7 +1792,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_yoga_planned_date"
                                             style="display: <?php echo ($day45_yoga_required === 'Yes') ? 'inline' : 'none'; ?>">
-                                            → Planned date: <input type="text" name="day45_yoga_planned_date"
+                                            ? Planned date: <input type="text" name="day45_yoga_planned_date"
                                                 value="<?php echo htmlspecialchars($day45_yoga_planned_date); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1831,7 +1803,7 @@ include('header.php');
                                         </div>
                                         <span id="day45_yoga_required_reason"
                                             style="display: <?php echo ($day45_yoga_required === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day45_yoga_required_reason"
+                                            ? Reason: <input type="text" name="day45_yoga_required_reason"
                                                 value="<?php echo htmlspecialchars($day45_yoga_required_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1866,8 +1838,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_45 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_45 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_45 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_45 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_45 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -1901,21 +1873,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day45_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day45_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day45_data_exists ? 'Already Submitted' : 'Submit Day 45 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="day60" role="tabpanel" aria-labelledby="day60-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 60 Follow-up</h2>
-                                <form id="day60form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 60 Follow-up</h2>
+                                <form id="day60form">
                                     <input type="hidden" name="day" value="60">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1933,7 +1898,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_meds_reason"
                                             style="display: <?php echo ($day60_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day60_meds_reason"
+                                            ? Reason: <input type="text" name="day60_meds_reason"
                                                 value="<?php echo htmlspecialchars($day60_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1948,7 +1913,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_bp_value"
                                             style="display: <?php echo ($day60_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day60_bp_value"
+                                            ? <input type="text" name="day60_bp_value"
                                                 value="<?php echo htmlspecialchars($day60_bp_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -1968,7 +1933,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_rbs_value"
                                             style="display:  <?php echo ($day60_rbs === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day60_rbs_value"
+                                            ? <input type="text" name="day60_rbs_value"
                                                 value="<?php echo htmlspecialchars($day60_rbs_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                             mg/dL
@@ -1996,7 +1961,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_hba1c_value"
                                             style="display:  <?php echo ($day60_hba1c === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day60_hba1c_value"
+                                            ? <input type="text" name="day60_hba1c_value"
                                                 value="<?php echo htmlspecialchars($day60_hba1c_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2007,7 +1972,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_hba1c_last"
                                             style="display:  <?php echo ($day60_hba1c === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Last checked: <input type="text" name="day60_hba1c_last"
+                                            ? Last checked: <input type="text" name="day60_hba1c_last"
                                                 value="<?php echo htmlspecialchars($day60_hba1c_last); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2023,7 +1988,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_challenges_reason"
                                             style="display:  <?php echo ($day60_challenges === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day60_challenges_reason"
+                                            ? Reason: <input type="text" name="day60_challenges_reason"
                                                 value="<?php echo htmlspecialchars($day60_challenges_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2048,7 +2013,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_monitor_reason"
                                             style="display:  <?php echo ($day60_monitor === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day60_monitor_reason"
+                                            ? Reason: <input type="text" name="day60_monitor_reason"
                                                 value="<?php echo htmlspecialchars($day60_monitor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2142,7 +2107,7 @@ include('header.php');
                                         </div>
                                         <span id="day60_doctor_reason"
                                             style="display: <?php echo ($day60_doctor === 'No') ? 'inline' : 'none'; ?>;;">
-                                            → Reason: <input type="text" name="day60_doctor_reason"
+                                            ? Reason: <input type="text" name="day60_doctor_reason"
                                                 value="<?php echo htmlspecialchars($day60_doctor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2150,7 +2115,7 @@ include('header.php');
 
                                     <div class="mb-3">
                                         <label class="form-label">12.How are you feeling now do you need more yoga
-                                            sessions??</label>
+                                            sessions? </label>
                                         <div class="form-group">
                                             <label>Remark:</label>
                                             <textarea name="day60_yoga_remark" class="form-control"
@@ -2187,8 +2152,8 @@ include('header.php');
                                                             Journey Completed</option>
                                                         <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_60 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                             Call Rescheduled by the Patient</option>
-                                                        <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_60 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                            Wrong Number – DND the Patient</option>
+                                                        <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_60 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                            Wrong Number � DND the Patient</option>
                                                         <option value="Language Barrier" <?php echo ($callconnect_subremark_60 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                             Language Barrier</option>
                                                         <option value="Call Completed" <?php echo ($callconnect_subremark_60 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -2221,21 +2186,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day60_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day60_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day60_data_exists ? 'Already Submitted' : 'Submit Day 60 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
 
                             </div>
                         </div>
                         <div class="tab-pane fade" id="day90" role="tabpanel" aria-labelledby="day90-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 90 Follow-up</h2>
-                                <form id="day90form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 90 Follow-up</h2>
+                                <form id="day90form">
                                     <input type="hidden" name="day" value="90">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2253,7 +2211,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_meds_reason"
                                             style="display: <?php echo ($day90_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day90_meds_reason"
+                                            ? Reason: <input type="text" name="day90_meds_reason"
                                                 value="<?php echo htmlspecialchars($day90_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2273,7 +2231,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_doctor_reason"
                                             style="display: <?php echo ($day90_doctor === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day90_doctor_reason"
+                                            ? Reason: <input type="text" name="day90_doctor_reason"
                                                 value="<?php echo htmlspecialchars($day90_doctor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2288,7 +2246,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_bp_value"
                                             style="display: <?php echo ($day90_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → BP: <input type="text" name="day90_bp_value"
+                                            ? BP: <input type="text" name="day90_bp_value"
                                                 value="<?php echo htmlspecialchars($day90_bp_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2299,7 +2257,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_bp_remarks"
                                             style="display:<?php echo ($day90_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Remarks: <input type="text" name="day90_bp_remarks"
+                                            ? Remarks: <input type="text" name="day90_bp_remarks"
                                                 value="<?php echo htmlspecialchars($day90_bp_remarks); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2362,7 +2320,7 @@ include('header.php');
                                             <label class="form-check-label" for="day90_yoga_schedule_no">No</label>
                                         </div>
                                         <span id="day90_yoga_schedule_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day90_yoga_schedule_reason"
+                                            ? Reason: <input type="text" name="day90_yoga_schedule_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -2384,7 +2342,7 @@ include('header.php');
                                         </span>
                                         <span id="day90_yoga_difficult_reason"
                                             style="display:<?php echo ($day90_yoga_difficult === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day90_yoga_difficult_reason"
+                                            ? Reason: <input type="text" name="day90_yoga_difficult_reason"
                                                 value="<?php echo htmlspecialchars($day90_yoga_difficult_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2403,7 +2361,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_yoga_planned_date"
                                             style="display: <?php echo ($day90_yoga_required === 'Yes') ? 'inline' : 'none'; ?>">
-                                            → Planned date: <input type="text" name="day90_yoga_planned_date"
+                                            ? Planned date: <input type="text" name="day90_yoga_planned_date"
                                                 value="<?php echo htmlspecialchars($day90_yoga_planned_date); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2414,7 +2372,7 @@ include('header.php');
                                         </div>
                                         <span id="day90_yoga_required_reason"
                                             style="display: <?php echo ($day90_yoga_required === 'No') ? 'inline' : 'none'; ?>">
-                                            → Reason: <input type="text" name="day90_yoga_required_reason"
+                                            ? Reason: <input type="text" name="day90_yoga_required_reason"
                                                 value="<?php echo htmlspecialchars($day90_yoga_required_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2449,8 +2407,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_90 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_90 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_90 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_90 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_90 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -2484,13 +2442,6 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day90_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day90_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day90_data_exists ? 'Already Submitted' : 'Submit Day 90 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -2498,8 +2449,8 @@ include('header.php');
 
                         <div class="tab-pane fade" id="day120" role="tabpanel" aria-labelledby="day120-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 120 Follow-up</h2>
-                                <form id="day120form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 120 Follow-up</h2>
+                                <form id="day120form">
                                     <input type="hidden" name="day" value="120">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2517,7 +2468,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_meds_reason"
                                             style="display: <?php echo ($day120_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day120_meds_reason"
+                                            ? Reason: <input type="text" name="day120_meds_reason"
                                                 value="<?php echo htmlspecialchars($day120_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2532,7 +2483,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_bp_value"
                                             style="display: <?php echo ($day120_bp === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day120_bp_value"
+                                            ? <input type="text" name="day120_bp_value"
                                                 value="<?php echo htmlspecialchars($day120_bp_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2552,7 +2503,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_rbs_value"
                                             style="display:  <?php echo ($day120_rbs === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day120_rbs_value"
+                                            ? <input type="text" name="day120_rbs_value"
                                                 value="<?php echo htmlspecialchars($day120_rbs_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                             mg/dL
@@ -2580,7 +2531,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_hba1c_value"
                                             style="display:  <?php echo ($day120_hba1c === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → <input type="text" name="day120_hba1c_value"
+                                            ? <input type="text" name="day120_hba1c_value"
                                                 value="<?php echo htmlspecialchars($day120_hba1c_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2591,7 +2542,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_hba1c_last"
                                             style="display:  <?php echo ($day120_hba1c === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Last checked: <input type="text" name="day120_hba1c_last"
+                                            ? Last checked: <input type="text" name="day120_hba1c_last"
                                                 value="<?php echo htmlspecialchars($day120_hba1c_last); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2607,7 +2558,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_challenges_reason"
                                             style="display:  <?php echo ($day120_challenges === 'Yes') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day120_challenges_reason"
+                                            ? Reason: <input type="text" name="day120_challenges_reason"
                                                 value="<?php echo htmlspecialchars($day120_challenges_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2632,7 +2583,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_monitor_reason"
                                             style="display:  <?php echo ($day120_monitor === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day120_monitor_reason"
+                                            ? Reason: <input type="text" name="day120_monitor_reason"
                                                 value="<?php echo htmlspecialchars($day120_monitor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2726,7 +2677,7 @@ include('header.php');
                                         </div>
                                         <span id="day120_doctor_reason"
                                             style="display: <?php echo ($day120_doctor === 'No') ? 'inline' : 'none'; ?>;;">
-                                            → Reason: <input type="text" name="day120_doctor_reason"
+                                            ? Reason: <input type="text" name="day120_doctor_reason"
                                                 value="<?php echo htmlspecialchars($day120_doctor_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2734,7 +2685,7 @@ include('header.php');
 
                                     <div class="mb-3">
                                         <label class="form-label">12.How are you feeling now do you need more yoga
-                                            sessions??</label>
+                                            sessions? </label>
                                         <div class="form-group">
                                             <label>Remark:</label>
                                             <textarea name="day120_yoga_remark" class="form-control"
@@ -2771,8 +2722,8 @@ include('header.php');
                                                             Journey Completed</option>
                                                         <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_120 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                             Call Rescheduled by the Patient</option>
-                                                        <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_120 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                            Wrong Number – DND the Patient</option>
+                                                        <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_120 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                            Wrong Number � DND the Patient</option>
                                                         <option value="Language Barrier" <?php echo ($callconnect_subremark_120 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                             Language Barrier</option>
                                                         <option value="Call Completed" <?php echo ($callconnect_subremark_120 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -2805,21 +2756,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day120_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day120_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day120_data_exists ? 'Already Submitted' : 'Submit Day 120 Follow-up'; ?>
-                                        </button>
-                                    </div>
                                 </form>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="day150" role="tabpanel" aria-labelledby="day150-tab">
                             <div class="form-section">
-                                <h2 class="section-title">🗓️ Day 150 Follow-up</h2>
-                                <form id="day150form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <h2 class="section-title">✅  Day 150 Follow-up</h2>
+                                <form id="day150form">
                                     <input type="hidden" name="day" value="150">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2837,7 +2781,7 @@ include('header.php');
                                         </div>
                                         <span id="day150_meds_reason"
                                             style="display:  <?php echo ($day150_meds === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day150_meds_reason"
+                                            ? Reason: <input type="text" name="day150_meds_reason"
                                                 value="<?php echo htmlspecialchars($day150_meds_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -2857,7 +2801,7 @@ include('header.php');
                                         </div>
                                         <span id="day150_meds_stock"
                                             style="display:  <?php echo ($day150_stock === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Please get a refill or consult your doctor.
+                                            ? Please get a refill or consult your doctor.
 
                                         </span>
                                     </div>
@@ -2882,7 +2826,7 @@ include('header.php');
                                         <div class="form-check form-check-inline checkbox-item">
                                             <input class="form-check-input" type="radio" name="day150_bp"
                                                 id="day150_bp_yes" value="Yes" <?php echo ($day150_bp === 'Yes') ? 'checked' : ''; ?>>
-                                            <label class="form-check-label" for="day150_bp_yes">Yes→ BP:</label>
+                                            <label class="form-check-label" for="day150_bp_yes">Yes? BP:</label>
                                         </div>
                                         <span id="day150_bp_value"
                                             style="display:  <?php echo ($day150_bp === 'Yes') ? 'inline' : 'none'; ?>;">
@@ -2914,7 +2858,7 @@ include('header.php');
                                             <label class="form-check-label" for="day150_rbs_yes">Yes</label>
                                         </div>
                                         <span id="day150_rbs_value" style="display: inline;">
-                                            → <input type="text" name="day150_rbs_value"
+                                            ? <input type="text" name="day150_rbs_value"
                                                 value="<?php echo htmlspecialchars($day150_rbs_value); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                             mg/dL
@@ -2925,7 +2869,7 @@ include('header.php');
                                             <label class="form-check-label" for="day150_rbs_no">No</label>
                                         </div>
                                         <span id="day150_rbs_reason" style="display: none;">
-                                            → Reason: <input type="text" name="day150_rbs_reason"
+                                            ? Reason: <input type="text" name="day150_rbs_reason"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
                                     </div>
@@ -3024,7 +2968,7 @@ include('header.php');
                                         </div>
                                         <span id="day150_yoga_reason"
                                             style="display: <?php echo ($day150_yoga === 'No') ? 'inline' : 'none'; ?>;">
-                                            → Reason: <input type="text" name="day150_yoga_reason"
+                                            ? Reason: <input type="text" name="day150_yoga_reason"
                                                 value="<?php echo htmlspecialchars($day150_yoga_reason); ?>"
                                                 class="form-control form-control-sm d-inline form-text-input">
                                         </span>
@@ -3059,8 +3003,8 @@ include('header.php');
                                                                 Journey Completed</option>
                                                             <option value="Call Rescheduled by the Patient" <?php echo ($callconnect_subremark_150 === 'Call Rescheduled by the Patient') ? 'selected' : ''; ?>>
                                                                 Call Rescheduled by the Patient</option>
-                                                            <option value="Wrong Number – DND the Patient" <?php echo ($callconnect_subremark_150 === 'Wrong Number – DND the Patient') ? 'selected' : ''; ?>>
-                                                                Wrong Number – DND the Patient</option>
+                                                            <option value="Wrong Number � DND the Patient" <?php echo ($callconnect_subremark_150 === 'Wrong Number � DND the Patient') ? 'selected' : ''; ?>>
+                                                                Wrong Number � DND the Patient</option>
                                                             <option value="Language Barrier" <?php echo ($callconnect_subremark_150 === 'Language Barrier') ? 'selected' : ''; ?>>
                                                                 Language Barrier</option>
                                                             <option value="Call Completed" <?php echo ($callconnect_subremark_150 === 'Call Completed') ? 'selected' : ''; ?>>
@@ -3093,13 +3037,6 @@ include('header.php');
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day150_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day150_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day150_data_exists ? 'Already Submitted' : 'Submit Day 150 Follow-up'; ?>
-                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -3346,15 +3283,6 @@ include('header.php');
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Submit -->
-                                    <div class="text-center mt-4">
-                                        <button type="submit"
-                                            class="btn btn-primary <?php echo $day180_data_exists ? 'btn-disabled' : ''; ?>"
-                                            <?php echo $day180_data_exists ? 'disabled' : ''; ?>>
-                                            <?php echo $day180_data_exists ? 'Already Submitted' : 'Submit Day 180 Follow-up'; ?>
-                                        </button>
                                     </div>
                                 </form>
 

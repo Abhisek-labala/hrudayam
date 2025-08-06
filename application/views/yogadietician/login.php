@@ -6,8 +6,7 @@ include('head.php');
 ?>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hridayam</title>
-  <link rel="icon" href="https://doctor.tasainnovation.com/uploads/logo.png" type="image/png">
+  <title>Hridayam Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -16,6 +15,16 @@ include('head.php');
       padding: 0;
       font-family: 'Poppins', sans-serif;
     }
+
+    /* body {
+      background: #e6f3fb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    } */
+
     body {
       background: #e6f3fb url('https://doctor.tasainnovation.com/13732.jpg') center center no-repeat;
       background-size: cover;
@@ -187,47 +196,16 @@ include('head.php');
         font-size: 14px;
       }
     }
-	.role-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  justify-items: center;
-  margin-top: 40px;
-}
-
-.role-btn {
-  background: linear-gradient(135deg, #c42942, #1d3557);
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+ .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  width: 200px;
-  transition: transform 0.2s ease, opacity 0.3s ease;
-  display: inline-block;
-}
-
-.role-btn:hover {
-  transform: scale(1.05);
-  opacity: 0.95;
-}
-
-@media (max-width: 480px) {
-  .role-buttons {
-    grid-template-columns: 1fr;
-  }
-}
-.right h2 {
-  text-align: center;
-  margin-bottom: 20px;
   color: #1d3557;
-  font-size: 22px;
+  font-size: 18px;
+  user-select: none;
 }
-
   </style>
 </head>
 <body>
@@ -239,16 +217,77 @@ include('head.php');
       <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam</p>-->
     </div>
     <div class="right">
-  <div class="role-buttons">
-    <a href="https://hridayampsp.com/educator-login" class="role-btn">Educator</a>
-    <a href="https://hridayampsp.com/Digital-Educator-login" class="role-btn">Digital Educator</a>
-    <!-- <a href="https://hridayampsp.com/Digital-YogaDieticial-login" class="role-btn">Digital Yoga Dietician</a> -->
-    <a href="https://hridayampsp.com/rm-login" class="role-btn">RM</a>
-    <a href="https://hridayampsp.com/mis-login" class="role-btn">MIS</a>
-    <a href="https://hridayampsp.com/pm-login" class="role-btn">PM</a>
-  </div>
-</div>
-
+      <h2>LOGIN DETAILS </h2>
+          <?php 
+          include('alerts.php');
+          ?> 
+          <form id="loginForm"  method="post" action="<?php echo base_url()?>Digital-YogaDieticial-login-Post"  onsubmit="return validateLogin();">
+          <div class="input-box">
+          <input type="text" id="email" name="email" placeholder="UserName">
+          </div>
+          <div class="input-box">
+          <input type="password" id="password" name="password" placeholder="Password">
+          <span class="toggle-password" onclick="togglePassword()">
+    👁️
+  </span>
+          </div>
+          <div class="options">
+          <label><input type="checkbox"> Remember</label>
+          </div>
+          <button class="login-btn" type="submit">Login</button>
+          <div class="signup">Sign up!</div>
+          <div class="dots">● ● ●</div>
+          </form>
+    </div>
   </div>
 </body>
 </html>
+
+
+<script>
+  function validateLogin() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email === '') {
+      alert('Please enter your Email.');
+      document.getElementById('email').focus();
+      return false;
+    }
+
+    // if (!emailRegex.test(email)) {
+    //   alert('Please enter a valid Email address.');
+    //   document.getElementById('email').focus();
+    //   return false;
+    // }
+
+    if (password === '') {
+      alert('Please enter your Password.');
+      document.getElementById('password').focus();
+      return false;
+    }
+
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters long.');
+      document.getElementById('password').focus();
+      return false;
+    }
+
+    return true; // All good
+  }
+</script>
+<script>
+  function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.toggle-password');
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.textContent = '🙈'; // Change icon to "hide"
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon.textContent = '👁️'; // Change icon to "view"
+    }
+  }
+</script>

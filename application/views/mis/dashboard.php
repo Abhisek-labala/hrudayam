@@ -485,13 +485,13 @@ include('footer.php');
             //var educatorId = $(this).val();
             var campId = $(this).val();
             $('#PatientData').html('');
-
+ var educatorId=$('#educator').val();
             $('#doctor').html('<option value=""> ---Select HCP---- </option>');
             getPatientData();
             $.ajax({
                 url: '/Common/getEdcautorDoctorsByCamp',
                 type: 'POST',
-                data: { campId: campId },
+                data: { campId: campId ,educatorId:educatorId},
                 success: function (response) {
                     $('#doctor').html(response);
                 },

@@ -33,19 +33,22 @@ include('side_bar.php');
 								<form action="<?php echo base_url();?>admin-change-password-post" name="changePassword" id="changePassword" method="post" enctype="multipart/form-data" >
 									
                                     
-                                    <div class="mb-3 row">
-										<label class="col-form-label col-md-2">Current Password</label>
-										<div class="col-md-10">
-											<input type="password" maxlength="12" class="form-control" name="currentPassword" id="currentPassword" required>
-										</div>
-									</div>
-                                    
-                                    <div class="mb-3 row">
-										<label class="col-form-label col-md-2">New Password</label>
-										<div class="col-md-10">
-											<input type="password" maxlength="12" class="form-control" name="newPassword" id="newPassword" required>
-										</div>
-									</div>
+                                   <div class="mb-3 row">
+    <label class="col-form-label col-md-2">Current Password</label>
+    <div class="col-md-10 position-relative">
+        <input type="password" maxlength="12" class="form-control" name="currentPassword" id="currentPassword" required>
+        <span class="toggle-password" data-target="currentPassword" style="position:absolute; right:15px; top:10px; cursor:pointer;">👁️</span>
+    </div>
+</div>
+
+<div class="mb-3 row">
+    <label class="col-form-label col-md-2">New Password</label>
+    <div class="col-md-10 position-relative">
+        <input type="password" maxlength="12" class="form-control" name="newPassword" id="newPassword" required>
+        <span class="toggle-password" data-target="newPassword" style="position:absolute; right:15px; top:10px; cursor:pointer;">👁️</span>
+    </div>
+</div>
+
                                     
                                     
                                     
@@ -69,6 +72,19 @@ include('side_bar.php');
 		</div>		
 	
 	</div>
+	<script>
+		document.querySelectorAll('.toggle-password').forEach(function (eyeIcon) {
+    eyeIcon.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (input) {
+            input.type = input.type === 'password' ? 'text' : 'password';
+            this.textContent = input.type === 'password' ? '👁️' : '🙈';
+        }
+    });
+});
+
+	</script>
 	<!-- /Main Wrapper -->
 		<?php
 include('footer.php');

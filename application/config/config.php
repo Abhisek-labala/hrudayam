@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://doctor.tasainnovation.com/';
+// $config['base_url'] = 'http://143.110.178.26/';
+$config['base_url'] = 'https://hridayampsp.com/';
+
 
 /*
 |--------------------------------------------------------------------------
@@ -521,3 +523,5 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+$config['max_size'] = 20480; // 20MB = 20480KB

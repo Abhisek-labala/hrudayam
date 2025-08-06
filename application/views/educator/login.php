@@ -196,6 +196,17 @@ include('head.php');
         font-size: 14px;
       }
     }
+    .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #1d3557;
+  font-size: 18px;
+  user-select: none;
+}
+
   </style>
 </head>
 <body>
@@ -216,8 +227,12 @@ include('head.php');
           <input type="text" id="email" name="email" placeholder="UserName">
           </div>
           <div class="input-box">
-          <input type="password" id="password" name="password" placeholder="Password">
-          </div>
+  <input type="password" id="password" name="password" placeholder="Password">
+  <span class="toggle-password" onclick="togglePassword()">
+    👁️
+  </span>
+</div>
+
           <div class="options">
           <label><input type="checkbox"> Remember</label>
           </div>
@@ -262,5 +277,19 @@ include('head.php');
     }
 
     return true; // All good
+  }
+</script>
+<script>
+  function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.toggle-password');
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.textContent = '🙈'; // Change icon to "hide"
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon.textContent = '👁️'; // Change icon to "view"
+    }
   }
 </script>

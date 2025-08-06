@@ -39,8 +39,10 @@ include('header.php');
 									<thead>
 										<tr>
 											<th>ID</th>
+											<th>Emp Id</th>
 											<th>Name</th>
 											<th>Email</th>
+											<th>Password</th>
 											<th>Mobile</th>
 											<th>City</th>
 											<th>State</th>
@@ -238,8 +240,10 @@ include('footer.php');
 				},
 				columns: [
 					{ data: 'id' },
+					{ data: 'emp_id' },
 					{ data: 'first_name' },
 					{ data: 'email' },
+					{ data: 'password' },
 					{ data: 'mobile' },
 					{ data: 'city' },
 					{ data: 'state' },

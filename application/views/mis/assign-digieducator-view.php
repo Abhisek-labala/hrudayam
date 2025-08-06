@@ -28,7 +28,7 @@ include('header.php');
                                 <?php
                                 // Get all educators
                                 $educators = array();
-                                $educatorData = getAllEducator();
+                                $educatorData = getAllDigiEducator();
                                 if ($educatorData && isset($educatorData['educatorData'])) {
                                     foreach ($educatorData['educatorData'] as $educatorItem) {
                                         $id = $educatorItem['id'];
@@ -77,7 +77,7 @@ include('header.php');
                                 <div class="mb-3 row">
                                     <label class="col-form-label col-md-2"></label>
                                     <div class="col-md-10">
-                                        <button type="submit" class="btn btn-primary">Assign Educator</button>
+                                        <button type="submit" class="btn btn-primary">Assign Digital Educator</button>
                                         <div id="responseMessage" class="mt-2"></div>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@ $(document).ready(function() {
         
         // AJAX request
         $.ajax({
-            url: 'pm-Assign-Educator-Post',
+            url: 'mis-Assign-DigitalEducator-Post',
             type: 'POST',
             dataType: 'json',
             data: formData,
