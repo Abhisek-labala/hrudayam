@@ -417,7 +417,9 @@ function getDigitalEducatorPatient($digital_educator_id)
 function getpatientlistdata()
 {
     $CI =& get_instance();
-    $query = "SELECT * FROM `patient_inquiry_new` where patient_enrolled='Yes' ORDER BY `id` desc";
+    $query = "SELECT A.*,B.first_name FROM `patient_inquiry_new` A
+    LEFT JOIN `educator` B ON B.id = A.educator_id
+     where patient_enrolled='Yes' ORDER BY `id` desc";
     //echo $query;
     $EducatorPatient = $CI->master_model->customQueryArray($query);
     return array('EducatorPatient' => $EducatorPatient);
@@ -882,6 +884,15 @@ function digitaleducatorlist()
     $query = "SELECT * from `digital_educator`";
     $digitaleducatorlist = $CI->master_model->customQueryArray($query);
     return array('digitaleducatorlist' => $digitaleducatorlist);
+}
+
+function CampDetails()
+{
+    $CI =& get_instance();
+    $query="SELECT * FROM `camp` A
+    LEFT JOIN educator e on A.edcator_id=e.id where A.edcator_id != '' order by date desc ";
+    $campDetails = $CI->master_model->customQueryArray($query);
+    return array('campDetails' => $campDetails);
 }
 
 

@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Welcome';
 //$route['default_controller'] = 'Admin/adminLogin';
-
+$route['campreport_excel']='/Common/campreport_excel';
 //////////admin///////////////
 //$route['admin-login'] = "Welcome";
 $route['admin-login']      		= "Welcome/adminLogin";
@@ -103,6 +103,7 @@ $route['Pm-login']      		= "Welcome/pmLogin";
 $route['pm-login-Post'] 	 	= "Welcome/pmLoginAuth";
 $route['pm-dashboard']   	    = "Pm/dashBoard";
 $route['Pm-dashboard']   	    = "Pm/dashBoard";
+$route['Pm-campreport']         ="Pm/campreport";
 $route['Pm-Create-Educator']   	    = "Pm/CreateEducator";
 $route['Pm-Create-Educator-Post']   	    = "Pm/createEducatorPost";
 $route['Pm-Get-Educators']   	    = "Pm/getEducators";
@@ -141,6 +142,7 @@ $route['mis-login']      		= "Welcome/misLogin";
 $route['Mis-login']      		= "Welcome/misLogin";
 $route['mis-login-Post'] 	 	= "Welcome/misLoginAuth";
 $route['mis-dashboard']   	    = "Mis/dashBoard";
+$route['Mis-campreport']         ="Mis/campreport";
 $route['Mis-dashboard']   	    = "Mis/dashBoard";
 $route['mis-logout']             = "Mis/logout";
 $route['Mis-logout']             = "Mis/logout";

@@ -49,6 +49,8 @@ include('header.php');
 										<th>Age</th>
 										<th>Weight</th>
 										<th>Height</th>
+										<th>Prescription Form</th>
+										<th>Consent Form</th>
 										<th>Doctor Name</th>
 										<th>Cipla Brand Prescribed</th>
 										<th>Date</th>
@@ -92,6 +94,8 @@ include('header.php');
 										$date = $PatientItem['date'];
 										$wh_ratio = $PatientItem['waist_to_height_ratio'];
 										$waist_circumference = $PatientItem['waist_circumference_remark'];
+										$consent_form_file = 'uploads/' . $PatientItem['consent_form_file'];
+										$prescription_file = 'uploads/' . $PatientItem['prescription_file'];
 
 
 										$hcp_name = $PatientItem['hcp_name'];
@@ -125,6 +129,8 @@ include('header.php');
 											<td><?php echo $age; ?></td>
 											<td><?php echo $height; ?></td>
 											<td><?php echo $weight; ?></td>
+											<td><a href="<?php echo $prescription_file; ?>" target="_blank">View</a></td>
+											<td><a href="<?php echo $consent_form_file; ?>" target="_blank">View</a></td>
 											<!-- <td><?php echo $waist_circumference; ?></td>                                 
 					<td><?php echo $bmi; ?></td>                                 
 					<td><?php echo $wh_ratio; ?></td>                                 -->
@@ -133,7 +139,8 @@ include('header.php');
 											<td><?php echo $doctorName; ?></td>
 											<td><?php echo $brand; ?></td>
 											<td><?php echo $date; ?></td>
-											<td><button class="btn btn-success" onclick="openform(<?php echo $id;?>);">View Form</button></td>
+											<td><button class="btn btn-success" onclick="openform(<?php echo $id; ?>);">View
+													Form</button></td>
 										</tr>
 										<?php $sr++;
 									} ?>
@@ -157,7 +164,7 @@ include('footer.php');
 ?>
 <script>
 	function openform($id) {
-    window.location.href = 'Digital-educator-follow-up-form?patient_id=' + $id;
-}
+		window.location.href = 'Digital-educator-follow-up-form?patient_id=' + $id;
+	}
 
 </script>

@@ -43,6 +43,7 @@ include('header.php');
                                 <thead>
                                     <tr>
                                         <th>Sr</th>
+                                        <th>Educator Name</th>
                                         <th>Name</th>
                                         <th>Gender</th>
                                         <th>Age</th>
@@ -72,6 +73,7 @@ include('header.php');
                                         $height = $PatientItem['height'];
                                         $weight = $PatientItem['weight'];
                                         $digitaleducatorid = $PatientItem['digital_educator_id'];
+                                        $educator_name=$PatientItem['first_name'];
                                         // echo $digitaleducatorid;die;
                                         $hcp_name = $PatientItem['hcp_name'];
                                         $query = "SELECT * FROM `doctors_new` WHERE `id`='" . $hcp_name . "' limit 1";
@@ -80,6 +82,7 @@ include('header.php');
                                         ?>
                                         <tr>
                                             <td><?php echo $sr; ?></td>
+                                            <td><?php echo htmlspecialchars($educator_name); ?></td>
                                             <td><?php echo htmlspecialchars($name); ?></td>
                                             <td><?php echo htmlspecialchars($gender); ?></td>
                                             <td><?php echo htmlspecialchars($age); ?></td>

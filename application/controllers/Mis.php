@@ -2713,4 +2713,9 @@ public function assigndigiEducatorView()
         $this->jsonResponse(['success' => false, 'message' => 'Failed to assign educator']);
     }
 }
+public function campreport()
+{
+
+	$this->load->view('mis/campreport');
+}
 }

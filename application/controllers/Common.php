@@ -465,6 +465,7 @@ public function getEdcautorPatientTableReport() {
     pin.city AS city_name,
     pin.speciality,
     sl.state AS state_name,
+    pin.uuid as unique_patient_id,
     pin.patient_name,
     pin.age,
     pin.mobile_number,
@@ -640,5 +641,8 @@ public function getEdcautorDailyTableReport() {
     $data['toDate'] = $toDate;
     $this->load->view('daily_report_view', $data);
 }
-	
+	public function campreport_excel()
+{
+	$this->load->view('camp_report');
+}
 }

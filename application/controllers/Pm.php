@@ -2743,5 +2743,10 @@ public function assign_digitaleducator_post()
 
             redirect('Assign-digital-educator');
 }
+public function campreport()
+{
+
+	$this->load->view('pm/campreport');
+}
 
 }

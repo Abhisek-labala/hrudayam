@@ -370,6 +370,7 @@ class Educator extends CI_Controller
 		$patientFormData['adl_walking'] = $_POST['adl_walking'] ?? '';
 		$patientFormData['adl_toileting'] = $_POST['adl_toileting'] ?? '';
 		$patientFormData['medicine'] = $medicineString ?? '';
+		$patientFormData['uuid'] = $this->generateUUIDv4();
 
 
 		// Competitor
@@ -392,7 +393,17 @@ class Educator extends CI_Controller
 		redirect(base_url() . '/Patient-Information');
 	}
 
-
+private function generateUUIDv4()
+{
+	return sprintf(
+		'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+		mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+		mt_rand(0, 0xffff),
+		mt_rand(0, 0x0fff) | 0x4000,
+		mt_rand(0, 0x3fff) | 0x8000,
+		mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+	);
+}
 	// public function createPatientInquiryPost()
 // 	{
 

@@ -79,6 +79,9 @@
 <li> 
                   <a href="<?php echo base_url();?>mis-feedback"><i class="fa fa-ticket"></i> <span>Feedbacks</span></a>
                </li>
+               <li> 
+                  <a href="<?php echo base_url();?>Mis-campreport"><i class="fa fa-ticket"></i> <span>Camp Report</span></a>
+               </li>
 			   <li> 
                   <a href="<?php echo base_url();?>mis-logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 
 				  <span>Logout</span></a>

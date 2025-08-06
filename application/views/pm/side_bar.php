@@ -86,6 +86,9 @@
 				<li> 
                   <a href="<?php echo base_url();?>pm-feedback"><i class="fa fa-ticket"></i> <span>Feedbacks</span></a>
                </li>
+				<li> 
+                  <a href="<?php echo base_url();?>Pm-campreport"><i class="fa fa-ticket"></i> <span>Camp Report</span></a>
+               </li>
             
 			   <li> 
                   <a href="<?php echo base_url();?>pm-logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 
