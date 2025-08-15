@@ -104,6 +104,7 @@ class DigitalEducator extends CI_Controller
             $callremark_3 = $this->input->post('callremark_3', TRUE);
             $callconnect_subremark_3 = $this->input->post('callconnect_subremark_3', TRUE);
             $noresponse_subremark_3 = $this->input->post('noresponse_subremark_3', TRUE);
+            $ae_report = $this->input->post('ae_report', TRUE);
 
             $data = [
                 'patient_id' => $patient_id,
@@ -119,6 +120,7 @@ class DigitalEducator extends CI_Controller
                 'callremark_3' => $callremark_3,
                 'callconnect_subremark_3' => $callconnect_subremark_3,
                 'noresponse_subremark_3' => $noresponse_subremark_3,
+                'ae_report' => $ae_report,
             ];
 
             $inserted = $this->db->insert('day3_followup', $data);

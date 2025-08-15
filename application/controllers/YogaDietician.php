@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class DigitalEducator extends CI_Controller
+class YogaDietician extends CI_Controller
 {
 
     function __construct()
@@ -18,21 +18,21 @@ class DigitalEducator extends CI_Controller
 
     public function dashboard()
     {
-        $this->load->view('digitaleducator/dashboard');
+        $this->load->view('yogadietician/dashboard');
     }
 
     public function digitalPatientList()
     {
-        $this->load->view('digitaleducator/patient-list');
+        $this->load->view('yogadietician/patient-list');
     }
     public function logout()
     {
-        $this->session->unset_userdata('digital_educator_id');
-        redirect(base_url() . '/Digital-Educator-login');
+        $this->session->unset_userdata('digital_yoga_dietician_id');
+        redirect(base_url() . '/Digital-YogaDieticial-login');
     }
     public function changePassword()
     {
-        $this->load->view('digitaleducator/change-password');
+        $this->load->view('yogadietician/change-password');
     }
 
     public function changePasswordPost()
@@ -43,18 +43,18 @@ class DigitalEducator extends CI_Controller
 
             if (!$oldPassword) {
                 $this->session->set_flashdata('error', 'Old Password Empty');
-                redirect(base_url() . '/Digital-educator-change-password');
+                redirect(base_url() . '/Digital-YogaDieticial-change-password');
             }
 
             if (!$newPassword) {
                 $this->session->set_flashdata('error', 'New Password Empty');
-                redirect(base_url() . '/Digital-educator-change-password');
+                redirect(base_url() . '/Digital-YogaDieticial-change-password');
             }
 
-            $educatorId = $this->session->userdata('digital_educator_id');
+            $educatorId = $this->session->userdata('digital_yoga_dietician_id');
             // echo $educatorId;die;
 
-            $query = "SELECT * FROM `digital_educator` WHERE `password`='" . $oldPassword . "' and `id`='" . $educatorId . "';";
+            $query = "SELECT * FROM `digital_yoga_dietician` WHERE `password`='" . $oldPassword . "' and `id`='" . $educatorId . "';";
             $educatorData = $this->master_model->customQueryArray($query);
 
             if ($educatorData) {
@@ -62,15 +62,15 @@ class DigitalEducator extends CI_Controller
                 $educatorPasswordData = array();
                 $educatorPasswordData['id'] = $educatorId;
                 $educatorPasswordData['password'] = $newPassword;
-                $row = $this->master_model->save('digital_educator', $educatorPasswordData);
+                $row = $this->master_model->save('digital_yoga_dietician', $educatorPasswordData);
                 unset($educatorPasswordData);
 
                 $this->session->set_flashdata('message', 'Password update Successfully');
-                redirect(base_url() . '/Digital-educator-change-password');
+                redirect(base_url() . '/Digital-YogaDieticial-change-password');
 
             } else {
                 $this->session->set_flashdata('error', 'Password Not Matched');
-                redirect(base_url() . '/Digital-educator-change-password');
+                redirect(base_url() . '/Digital-YogaDieticial-change-password');
             }
 
 
@@ -79,7 +79,7 @@ class DigitalEducator extends CI_Controller
 
     public function followupform()
     {
-        $this->load->view('digitaleducator/patientfollowupform');
+        $this->load->view('yogadietician/patientfollowupform');
     }
 
     public function followupformpost()
@@ -91,46 +91,6 @@ class DigitalEducator extends CI_Controller
             'patient_id' => $patient_id
         ];
         $inserted = $this->db->insert('feedback_submitted', $daydata);
-        if ($day === '3') {
-            $day3_meds = $this->input->post('day3_meds', TRUE);
-            $day3_meds_reason = $this->input->post('day3_meds_reason', TRUE);
-            $day3_sugar = $this->input->post('day3_sugar', TRUE);
-            $day3_sugar_reason = $this->input->post('day3_sugar_reason', TRUE);
-            $day3_bp = $this->input->post('day3_bp', TRUE);
-            $day3_bp_reason = $this->input->post('day3_bp_reason', TRUE);
-            $day3_fluid = $this->input->post('day3_fluid', TRUE);
-            $day3_fluid_reason = $this->input->post('day3_fluid_reason', TRUE);
-            $day3_support = $this->input->post('day3_support') ? implode(',', $this->input->post('day3_support')) : '';
-            $callremark_3 = $this->input->post('callremark_3', TRUE);
-            $callconnect_subremark_3 = $this->input->post('callconnect_subremark_3', TRUE);
-            $noresponse_subremark_3 = $this->input->post('noresponse_subremark_3', TRUE);
-
-            $data = [
-                'patient_id' => $patient_id,
-                'day3_meds' => $day3_meds,
-                'day3_meds_reason' => $day3_meds_reason,
-                'day3_sugar' => $day3_sugar,
-                'day3_sugar_reason' => $day3_sugar_reason,
-                'day3_bp' => $day3_bp,
-                'day3_bp_reason' => $day3_bp_reason,
-                'day3_fluid' => $day3_fluid,
-                'day3_fluid_reason' => $day3_fluid_reason,
-                'day3_support' => $day3_support,
-                'callremark_3' => $callremark_3,
-                'callconnect_subremark_3' => $callconnect_subremark_3,
-                'noresponse_subremark_3' => $noresponse_subremark_3,
-            ];
-
-            $inserted = $this->db->insert('day3_followup', $data);
-
-            if ($inserted) {
-                $this->session->set_flashdata('success', 'Follow-up saved successfully!');
-                redirect('digital-Patient-List'); // Replace with your actual form page route
-            } else {
-                $this->session->set_flashdata('error', 'Failed to save follow-up.');
-                redirect('digital-Patient-List');
-            }
-        }
         if ($day === '7') {
             $patient_id = $this->input->post('patient_id', TRUE);
 
@@ -191,133 +151,11 @@ class DigitalEducator extends CI_Controller
 
             if ($inserted) {
                 $this->session->set_flashdata('success', 'Day 7 Follow-up saved successfully!');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             } else {
                 $this->session->set_flashdata('error', 'Failed to save Day 7 follow-up.');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             }
-        }
-        if ($day === '15') {
-            $patient_id = $this->input->post('patient_id', TRUE);
-
-            $day15_meds = $this->input->post('day15_meds', TRUE);
-            $day15_meds_reason = $this->input->post('day15_meds_reason', TRUE);
-
-            $day15_stock = $this->input->post('day15_stock', TRUE);
-            $day15_changes = $this->input->post('day15_changes', TRUE);
-
-            $day15_bp = $this->input->post('day15_bp', TRUE);
-            $day15_bp_value = $this->input->post('day15_bp_value', TRUE);
-
-            $day15_weight = $this->input->post('day15_weight', TRUE);
-
-            $day15_rbs = $this->input->post('day15_rbs', TRUE);
-            $day15_rbs_value = $this->input->post('day15_rbs_value', TRUE);
-            $day15_rbs_reason = $this->input->post('day15_rbs_reason', TRUE);
-
-            $day15_fluid = $this->input->post('day15_fluid', TRUE);
-            $day15_urine = $this->input->post('day15_urine', TRUE);
-
-            // Handle multi-select (radio inputs named like array)
-            $day15_breathless = $this->input->post('day15_breathless', TRUE);
-
-            $day15_yoga = $this->input->post('day15_yoga', TRUE);
-            $day15_yoga_reason = $this->input->post('day15_yoga_reason', TRUE);
-
-            $callremark_15 = $this->input->post('callremark_15', TRUE);
-            $callconnect_subremark_15 = $this->input->post('callconnect_subremark_15', TRUE);
-            $noresponse_subremark_15 = $this->input->post('noresponse_subremark_15', TRUE);
-            $data = [
-                'patient_id' => $patient_id,
-                'day15_meds' => $day15_meds,
-                'day15_meds_reason' => $day15_meds_reason,
-                'day15_stock' => $day15_stock,
-                'day15_changes' => $day15_changes,
-                'day15_bp' => $day15_bp,
-                'day15_bp_value' => $day15_bp_value,
-                'day15_weight' => $day15_weight,
-                'day15_rbs' => $day15_rbs,
-                'day15_rbs_value' => $day15_rbs_value,
-                'day15_rbs_reason' => $day15_rbs_reason,
-                'day15_fluid' => $day15_fluid,
-                'day15_urine' => $day15_urine,
-                'day15_breathless' => $day15_breathless,
-                'day15_yoga' => $day15_yoga,
-                'day15_yoga_reason' => $day15_yoga_reason,
-                'callremark_15' => $callremark_15,
-                'callconnect_subremark_15' => $callconnect_subremark_15,
-                'noresponse_subremark_15' => $noresponse_subremark_15
-            ];
-            $inserted = $this->db->insert('day15_followup', $data);
-
-            if ($inserted) {
-                $this->session->set_flashdata('success', 'Day 15 Follow-up saved successfully!');
-            } else {
-                $this->session->set_flashdata('error', 'Failed to save Day 15 follow-up.');
-            }
-
-            redirect('digital-Patient-List');
-        }
-        if ($day === '30') {
-            $patient_id = $this->input->post('patient_id', TRUE);
-
-            $day30_meds = $this->input->post('day30_meds', TRUE);
-            $day30_meds_reason = $this->input->post('day30_meds_reason', TRUE);
-
-            $day30_stock = $this->input->post('day30_stock', TRUE);
-            $day30_changes = $this->input->post('day30_changes', TRUE);
-
-            $day30_bp = $this->input->post('day30_bp', TRUE);
-            $day30_bp_value = $this->input->post('day30_bp_value', TRUE);
-
-            $day30_weight = $this->input->post('day30_weight', TRUE);
-
-            $day30_rbs = $this->input->post('day30_rbs', TRUE);
-            $day30_rbs_value = $this->input->post('day30_rbs_value', TRUE);
-            $day30_rbs_reason = $this->input->post('day30_rbs_reason', TRUE);
-
-            $day30_fluid = $this->input->post('day30_fluid', TRUE);
-            $day30_urine = $this->input->post('day30_urine', TRUE);
-
-            // Handle multi-select (radio inputs named like array)
-            $day30_breathless = $this->input->post('day30_breathless', TRUE);
-
-            $day30_yoga = $this->input->post('day30_yoga', TRUE);
-            $day30_yoga_reason = $this->input->post('day30_yoga_reason', TRUE);
-
-            $callremark_30 = $this->input->post('callremark_30', TRUE);
-            $callconnect_subremark_30 = $this->input->post('callconnect_subremark_30', TRUE);
-            $noresponse_subremark_30 = $this->input->post('noresponse_subremark_30', TRUE);
-            $data = [
-                'patient_id' => $patient_id,
-                'day30_meds' => $day30_meds,
-                'day30_meds_reason' => $day30_meds_reason,
-                'day30_stock' => $day30_stock,
-                'day30_changes' => $day30_changes,
-                'day30_bp' => $day30_bp,
-                'day30_bp_value' => $day30_bp_value,
-                'day30_weight' => $day30_weight,
-                'day30_rbs' => $day30_rbs,
-                'day30_rbs_value' => $day30_rbs_value,
-                'day30_rbs_reason' => $day30_rbs_reason,
-                'day30_fluid' => $day30_fluid,
-                'day30_urine' => $day30_urine,
-                'day30_breathless' => $day30_breathless,
-                'day30_yoga' => $day30_yoga,
-                'day30_yoga_reason' => $day30_yoga_reason,
-                'callremark_30' => $callremark_30,
-                'callconnect_subremark_30' => $callconnect_subremark_30,
-                'noresponse_subremark_30' => $noresponse_subremark_30
-            ];
-            $inserted = $this->db->insert('day30_followup', $data);
-
-            if ($inserted) {
-                $this->session->set_flashdata('success', 'Day 30 Follow-up saved successfully!');
-            } else {
-                $this->session->set_flashdata('error', 'Failed to save Day 30 follow-up.');
-            }
-
-            redirect('digital-Patient-List');
         }
         if ($day === '45') {
             $patient_id = $this->input->post('patient_id', TRUE);
@@ -379,88 +217,11 @@ class DigitalEducator extends CI_Controller
 
             if ($inserted) {
                 $this->session->set_flashdata('success', 'Day 45 Follow-up saved successfully!');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             } else {
                 $this->session->set_flashdata('error', 'Failed to save Day 45 follow-up.');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             }
-        }
-        if ($day === '60') {
-            // echo '<pre>'; print_r($_POST); echo '</pre>'; die;
-                $patient_id = $this->input->post('patient_id', TRUE);
-
-                $day60_meds = $this->input->post('day60_meds', TRUE);
-                $day60_meds_reason = $this->input->post('day60_meds_reason', TRUE);
-
-                $day60_bp = $this->input->post('day60_bp', TRUE);
-                $day60_bp_value = $this->input->post('day60_bp_value', TRUE);
-
-                $day60_rbs = $this->input->post('day60_rbs', TRUE);
-                $day60_rbs_value = $this->input->post('day60_rbs_value', TRUE);
-
-                $day60_weight = $this->input->post('day60_weight', TRUE);
-
-                $day60_hba1c = $this->input->post('day60_hba1c', TRUE);
-                $day60_hba1c_value = $this->input->post('day60_hba1c_value', TRUE);
-                $day60_hba1c_last = $this->input->post('day60_hba1c_last', TRUE);
-
-                $day60_challenges = $this->input->post('day60_challenges', TRUE);
-                $day60_challenges_reason = $this->input->post('day60_challenges_reason', TRUE);
-
-                $day60_monitor = $this->input->post('day60_monitor', TRUE);
-                $day60_monitor_reason = $this->input->post('day60_monitor_reason', TRUE);
-
-                $day60_water = $this->input->post('day60_water', TRUE);
-                $day60_urine = $this->input->post('day60_urine', TRUE);
-
-                $day60_questions = $this->input->post('day60_questions', TRUE);
-                $day60_help = $this->input->post('day60_help', TRUE);
-
-                $day60_doctor = $this->input->post('day60_doctor', TRUE);
-                $day60_doctor_reason = $this->input->post('day60_doctor_reason', TRUE);
-
-                $day60_yoga_remark = $this->input->post('day60_yoga_remark', TRUE);
-
-                $callremark_60 = $this->input->post('callremark_60', TRUE);
-                $callconnect_subremark_60 = $this->input->post('callconnect_subremark_60', TRUE);
-                $noresponse_subremark_60 = $this->input->post('noresponse_subremark_60', TRUE);
-                $data = [
-                    'patient_id' => $patient_id,
-                    'day60_meds' => $day60_meds,
-                    'day60_meds_reason' => $day60_meds_reason,
-                    'day60_bp' => $day60_bp,
-                    'day60_bp_value' => $day60_bp_value,
-                    'day60_rbs' => $day60_rbs,
-                    'day60_rbs_value' => $day60_rbs_value,
-                    'day60_weight' => $day60_weight,
-                    'day60_hba1c' => $day60_hba1c,
-                    'day60_hba1c_value' => $day60_hba1c_value,
-                    'day60_hba1c_last' => $day60_hba1c_last,
-                    'day60_challenges' => $day60_challenges,
-                    'day60_challenges_reason' => $day60_challenges_reason,
-                    'day60_monitor' => $day60_monitor,
-                    'day60_monitor_reason' => $day60_monitor_reason,
-                    'day60_water' => $day60_water,
-                    'day60_urine' => $day60_urine,
-                    'day60_questions' => $day60_questions,
-                    'day60_help' => $day60_help,
-                    'day60_doctor' => $day60_doctor,
-                    'day60_doctor_reason' => $day60_doctor_reason,
-                    'day60_yoga_remark' => $day60_yoga_remark,
-                    'callremark_60' => $callremark_60,
-                    'callconnect_subremark_60' => $callconnect_subremark_60,
-                    'noresponse_subremark_60' => $noresponse_subremark_60
-                ];
-                $inserted = $this->db->insert('day60_follow_up', $data);
-                // echo 'hii';die;
-
-                if ($inserted) {
-                    $this->session->set_flashdata('success', 'Day 60 Follow-up saved successfully!');
-                } else {
-                    $this->session->set_flashdata('error', 'Failed to save Day 60 follow-up.');
-                }
-
-                redirect('digital-Patient-List');
         }
          if ($day === '90') {
             $patient_id = $this->input->post('patient_id', TRUE);
@@ -522,204 +283,12 @@ class DigitalEducator extends CI_Controller
 
             if ($inserted) {
                 $this->session->set_flashdata('success', 'Day 90 Follow-up saved successfully!');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             } else {
                 $this->session->set_flashdata('error', 'Failed to save Day 90 follow-up.');
-                redirect('digital-Patient-List');
+                redirect('Digital-yoga-Patient-List');
             }
         }
-         if ($day === '120') {
-            // echo '<pre>'; print_r($_POST); echo '</pre>'; die;
-                $patient_id = $this->input->post('patient_id', TRUE);
-
-                $day120_meds = $this->input->post('day120_meds', TRUE);
-                $day120_meds_reason = $this->input->post('day120_meds_reason', TRUE);
-
-                $day120_bp = $this->input->post('day120_bp', TRUE);
-                $day120_bp_value = $this->input->post('day120_bp_value', TRUE);
-
-                $day120_rbs = $this->input->post('day120_rbs', TRUE);
-                $day120_rbs_value = $this->input->post('day120_rbs_value', TRUE);
-
-                $day120_weight = $this->input->post('day120_weight', TRUE);
-
-                $day120_hba1c = $this->input->post('day120_hba1c', TRUE);
-                $day120_hba1c_value = $this->input->post('day120_hba1c_value', TRUE);
-                $day120_hba1c_last = $this->input->post('day120_hba1c_last', TRUE);
-
-                $day120_challenges = $this->input->post('day120_challenges', TRUE);
-                $day120_challenges_reason = $this->input->post('day120_challenges_reason', TRUE);
-
-                $day120_monitor = $this->input->post('day120_monitor', TRUE);
-                $day120_monitor_reason = $this->input->post('day120_monitor_reason', TRUE);
-
-                $day120_water = $this->input->post('day120_water', TRUE);
-                $day120_urine = $this->input->post('day120_urine', TRUE);
-
-                $day120_questions = $this->input->post('day120_questions', TRUE);
-                $day120_help = $this->input->post('day120_help', TRUE);
-
-                $day120_doctor = $this->input->post('day120_doctor', TRUE);
-                $day120_doctor_reason = $this->input->post('day120_doctor_reason', TRUE);
-
-                $day120_yoga_remark = $this->input->post('day120_yoga_remark', TRUE);
-
-                $callremark_120 = $this->input->post('callremark_120', TRUE);
-                $callconnect_subremark_120 = $this->input->post('callconnect_subremark_120', TRUE);
-                $noresponse_subremark_120 = $this->input->post('noresponse_subremark_120', TRUE);
-                $data = [
-                    'patient_id' => $patient_id,
-                    'day120_meds' => $day120_meds,
-                    'day120_meds_reason' => $day120_meds_reason,
-                    'day120_bp' => $day120_bp,
-                    'day120_bp_value' => $day120_bp_value,
-                    'day120_rbs' => $day120_rbs,
-                    'day120_rbs_value' => $day120_rbs_value,
-                    'day120_weight' => $day120_weight,
-                    'day120_hba1c' => $day120_hba1c,
-                    'day120_hba1c_value' => $day120_hba1c_value,
-                    'day120_hba1c_last' => $day120_hba1c_last,
-                    'day120_challenges' => $day120_challenges,
-                    'day120_challenges_reason' => $day120_challenges_reason,
-                    'day120_monitor' => $day120_monitor,
-                    'day120_monitor_reason' => $day120_monitor_reason,
-                    'day120_water' => $day120_water,
-                    'day120_urine' => $day120_urine,
-                    'day120_questions' => $day120_questions,
-                    'day120_help' => $day120_help,
-                    'day120_doctor' => $day120_doctor,
-                    'day120_doctor_reason' => $day120_doctor_reason,
-                    'day120_yoga_remark' => $day120_yoga_remark,
-                    'callremark_120' => $callremark_120,
-                    'callconnect_subremark_120' => $callconnect_subremark_120,
-                    'noresponse_subremark_120' => $noresponse_subremark_120
-                ];
-                $inserted = $this->db->insert('day120_follow_up', $data);
-                // echo 'hii';die;
-
-                if ($inserted) {
-                    $this->session->set_flashdata('success', 'Day 120 Follow-up saved successfully!');
-                } else {
-                    $this->session->set_flashdata('error', 'Failed to save Day 120 follow-up.');
-                }
-
-                redirect('digital-Patient-List');
-        }
-        if ($day === '150') {
-            $patient_id = $this->input->post('patient_id', TRUE);
-
-            $day150_meds = $this->input->post('day150_meds', TRUE);
-            $day150_meds_reason = $this->input->post('day150_meds_reason', TRUE);
-
-            $day150_stock = $this->input->post('day150_stock', TRUE);
-            $day150_changes = $this->input->post('day150_changes', TRUE);
-
-            $day150_bp = $this->input->post('day150_bp', TRUE);
-            $day150_bp_value = $this->input->post('day150_bp_value', TRUE);
-
-            $day150_weight = $this->input->post('day150_weight', TRUE);
-
-            $day150_rbs = $this->input->post('day150_rbs', TRUE);
-            $day150_rbs_value = $this->input->post('day150_rbs_value', TRUE);
-            $day150_rbs_reason = $this->input->post('day150_rbs_reason', TRUE);
-
-            $day150_fluid = $this->input->post('day150_fluid', TRUE);
-            $day150_urine = $this->input->post('day150_urine', TRUE);
-
-            // Handle multi-select (radio inputs named like array)
-            $day150_breathless = $this->input->post('day150_breathless', TRUE);
-
-            $day150_yoga = $this->input->post('day150_yoga', TRUE);
-            $day150_yoga_reason = $this->input->post('day150_yoga_reason', TRUE);
-
-            $callremark_150 = $this->input->post('callremark_150', TRUE);
-            $callconnect_subremark_150 = $this->input->post('callconnect_subremark_150', TRUE);
-            $noresponse_subremark_150 = $this->input->post('noresponse_subremark_150', TRUE);
-            $data = [
-                'patient_id' => $patient_id,
-                'day150_meds' => $day150_meds,
-                'day150_meds_reason' => $day150_meds_reason,
-                'day150_stock' => $day150_stock,
-                'day150_changes' => $day150_changes,
-                'day150_bp' => $day150_bp,
-                'day150_bp_value' => $day150_bp_value,
-                'day150_weight' => $day150_weight,
-                'day150_rbs' => $day150_rbs,
-                'day150_rbs_value' => $day150_rbs_value,
-                'day150_rbs_reason' => $day150_rbs_reason,
-                'day150_fluid' => $day150_fluid,
-                'day150_urine' => $day150_urine,
-                'day150_breathless' => $day150_breathless,
-                'day150_yoga' => $day150_yoga,
-                'day150_yoga_reason' => $day150_yoga_reason,
-                'callremark_150' => $callremark_150,
-                'callconnect_subremark_150' => $callconnect_subremark_150,
-                'noresponse_subremark_150' => $noresponse_subremark_150
-            ];
-            $inserted = $this->db->insert('day150_followup', $data);
-
-            if ($inserted) {
-                $this->session->set_flashdata('success', 'Day 150 Follow-up saved successfully!');
-            } else {
-                $this->session->set_flashdata('error', 'Failed to save Day 150 follow-up.');
-            }
-
-            redirect('digital-Patient-List');
-        }
-        if ($day === '180') {
-    $patient_id = $this->input->post('patient_id', TRUE);
-
-    $feeling_now = $this->input->post('feeling_now', TRUE);
-    $yoga_helpful = $this->input->post('yoga_helpful', TRUE);
-    $yoga_feedback = $this->input->post('yoga_feedback', TRUE);
-
-    $instructor_support = $this->input->post('instructor_support', TRUE);
-    $instructor_feedback = $this->input->post('instructor_feedback', TRUE);
-
-    $diet_impact = $this->input->post('diet_impact', TRUE);
-    $diet_feedback = $this->input->post('diet_feedback', TRUE);
-
-    $dietician_access = $this->input->post('dietician_access', TRUE);
-    $dietician_feedback = $this->input->post('dietician_feedback', TRUE);
-
-    $overall_experience = $this->input->post('overall_experience', TRUE);
-    $experience_remarks = $this->input->post('experience_remarks', TRUE);
-
-    $final_feedback = $this->input->post('final_feedback', TRUE);
-
-    $callremark_180 = $this->input->post('callremark_180', TRUE);
-    $callconnect_subremark_180 = $this->input->post('callconnect_subremark_180', TRUE);
-    $noresponse_subremark_180 = $this->input->post('noresponse_subremark_180', TRUE);
-
-    $data = [
-        'patient_id' => $patient_id,
-        'feeling_now' => $feeling_now,
-        'yoga_helpful' => $yoga_helpful,
-        'yoga_feedback' => $yoga_feedback,
-        'instructor_support' => $instructor_support,
-        'instructor_feedback' => $instructor_feedback,
-        'diet_impact' => $diet_impact,
-        'diet_feedback' => $diet_feedback,
-        'dietician_access' => $dietician_access,
-        'dietician_feedback' => $dietician_feedback,
-        'overall_experience' => $overall_experience,
-        'experience_remarks' => $experience_remarks,
-        'final_feedback' => $final_feedback,
-        'callremark_180' => $callremark_180,
-        'callconnect_subremark_180' => $callconnect_subremark_180,
-        'noresponse_subremark_180' => $noresponse_subremark_180
-    ];
-
-    $inserted = $this->db->insert('day180_followup', $data);
-
-    if ($inserted) {
-        $this->session->set_flashdata('success', 'Day 180 Follow-up saved successfully!');
-    } else {
-        $this->session->set_flashdata('error', 'Failed to save Day 180 follow-up.');
-    }
-
-    redirect('digital-Patient-List');
-}
 
     }
 

@@ -297,7 +297,7 @@ include('header.php');
                 $noresponse_subremark_180 = '';
 
                 $day3_data_exists = false;
-                $daysubmit = "SELECT distinct(day) from `feedback_submitted` where patient_id=$patientId";
+                $daysubmit = "SELECT distinct(day) from `feedback_submitted` where patient_id=$patientId order by CAST(day AS UNSIGNED) ASC";
                 $dyasubmitdata = $this->master_model->customQueryArray($daysubmit);
                 // pr($dyasubmitdata);die;
                 if ($dyasubmitdata) {
@@ -317,6 +317,15 @@ include('header.php');
                         $day3_call_remark = $day3_data_exists ? $day3followupdata->callremark_3 : '';
                         $callconnect_subremark_3 = $day3_data_exists ? $day3followupdata->callconnect_subremark_3 : '';
                         $day3_sub_remark = $day3_data_exists ? $day3followupdata->noresponse_subremark_3 : '';
+                        $day3_ae_report=$day3_data_exists ? $day3followupdata->ae_report:'';
+                        $dnd_or_dropout_conditions = [
+                            'Option to DND the Patient',
+                            'Wrong Number – DND the Patient',
+                            'Dropout',
+                        ];
+
+                        // Check if Day 15 should be disabled
+                        $disable_day3 = in_array($callconnect_subremark_3, $dnd_or_dropout_conditions) || $day3_sub_remark === 'Drop out';
                     }
                     if ($dyasubmitdata[1]['day'] === '7') {
                         $day7followup = "SELECT * from `day7_followup` where patient_id=$patientId order by id desc limit 1";
@@ -561,8 +570,8 @@ include('header.php');
                                 type="button" role="tab">Day 3</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo $day3_data_exists ?  '' :'disabled text-muted' ; ?>" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7"
-                                type="button" role="tab" <?php echo $day3_data_exists ? '' :'disabled' ; ?>>Day 7</button>
+                            <button class="nav-link <?php echo ($day3_data_exists && !$disable_day3)?  '' :'disabled text-muted' ; ?>" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7"
+                                type="button" role="tab" <?php echo ($day3_data_exists && !$disable_day3) ? '' :'disabled' ; ?>>Day 7</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day7_data_exists ?  '' :'disabled text-muted' ; ?>" id="day15-tab" data-bs-toggle="tab" data-bs-target="#day15"
@@ -718,11 +727,23 @@ include('header.php');
                                             <label class="form-check-label" for="day3_support_none">No</label>
                                         </div>
                                     </div>
-
                                     <div class="mb-3">
                                         <label class="form-label">4. In case you need any support, please feel free to
                                             call us on our toll-free number: <span
                                                 class="support-number">18002670975</span></label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">1. AE REPORT?</label>
+                                        <div class="form-check form-check-inline checkbox-item">
+                                            <input class="form-check-input" type="radio" name="ae_report"
+                                                id="ae_report_yes" value="Yes" <?php echo ($day3_ae_report === 'Yes') ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="ae_report_yes">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline checkbox-item">
+                                            <input class="form-check-input" type="radio" name="ae_report"
+                                                id="ae_report_no" value="No" <?php echo ($day3_ae_report === 'No') ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="ae_report_no">No</label>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Call Remark</label>

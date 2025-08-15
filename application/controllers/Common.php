@@ -357,6 +357,8 @@ public function getEdcautorPatientTable() {
                 <th>Gender</th>
                 <th>Blood Pressure</th>
                 <th>BMI</th>
+                <th>ConsentForm</th>
+                <th>Prescription</th>
                 <th>Educator Name</th>
                 <th>RM Name</th>
                 <th>City</th>					
@@ -381,10 +383,12 @@ public function getEdcautorPatientTable() {
         $getAllCity = getAllCity();
         $citiesDataCityCodeWise = $getAllCity['citiesDataCityCodeWise'];
         $citiesDataIdWise = $getAllCity['citiesDataIdWise'];
-        
+       
         
         $excelData = array();
-        foreach($patientData as $key=> $item){						
+        foreach($patientData as $key=> $item){		
+             $consent_form_file = 'uploads/' . $item['consent_form_file'];
+        $prescription_file = 'uploads/' . $item['prescription_file'];				
         $genderId = $item['gender'];
         $genderString = genderString($genderId);
         
@@ -421,6 +425,21 @@ public function getEdcautorPatientTable() {
             <td><?php echo $genderString;?></td>
             <td><?php echo $item['blood_pressure']?></td>
             <td><?php echo $item['bmi']?></td>
+           <td>
+    <?php if (!empty($item['consent_form_file'])): ?>
+        <a href="uploads/<?php echo $item['consent_form_file']; ?>" target="_blank">View</a>
+    <?php else: ?>
+        No file uploaded
+    <?php endif; ?>
+</td>
+
+<td>
+    <?php if (!empty($item['prescription_file'])): ?>
+        <a href="uploads/<?php echo $item['prescription_file']; ?>" target="_blank">View</a>
+    <?php else: ?>
+        No file uploaded
+    <?php endif; ?>
+</td>
             <td><?php echo $educatorName; ?></td>
             <td><?php echo $rmName;?></td>
             <td><?php echo $city?></td>	

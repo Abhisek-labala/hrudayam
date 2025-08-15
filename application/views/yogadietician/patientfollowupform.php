@@ -297,7 +297,7 @@ include('header.php');
                 $noresponse_subremark_180 = '';
 
                 $day3_data_exists = false;
-                $daysubmit = "SELECT distinct(day) from `feedback_submitted` where patient_id=$patientId";
+                $daysubmit = "SELECT distinct(day) from `feedback_submitted` where patient_id=$patientId order by CAST(day AS UNSIGNED) ASC";
                 $dyasubmitdata = $this->master_model->customQueryArray($daysubmit);
                 // pr($dyasubmitdata);die;
                 if ($dyasubmitdata) {
@@ -556,35 +556,35 @@ include('header.php');
                 <div class="form-container">
                     <h1 class="form-title">✅ Patient Follow-up Form</h1>
                     <ul class="nav nav-tabs" id="followUpTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="day3-tab" data-bs-toggle="tab" data-bs-target="#day3"
                                 type="button" role="tab">Day 3</button>
-                        </li>
+                        </li> -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day3_data_exists ?  '' :'disabled text-muted' ; ?>" id="day7-tab" data-bs-toggle="tab" data-bs-target="#day7"
                                 type="button" role="tab" <?php echo $day3_data_exists ? '' :'disabled' ; ?>>Day 7</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day7_data_exists ?  '' :'disabled text-muted' ; ?>" id="day15-tab" data-bs-toggle="tab" data-bs-target="#day15"
                                 type="button" role="tab" <?php echo $day7_data_exists ? '' :'disabled' ; ?>>Day 15</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day15_data_exists ?  '' :'disabled text-muted' ; ?>" id="day30-tab" data-bs-toggle="tab" data-bs-target="#day30"
                                 type="button" role="tab" <?php echo $day15_data_exists ? '' :'disabled' ; ?>>Day 30</button>
-                        </li>
+                        </li> -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day30_data_exists ?  '' :'disabled text-muted' ; ?>" id="day45-tab" data-bs-toggle="tab" data-bs-target="#day45"
                                 type="button" role="tab" <?php echo $day30_data_exists ? '' :'disabled' ; ?>>Day 45</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day45_data_exists ?  '' :'disabled text-muted' ; ?>" id="day60-tab" data-bs-toggle="tab" data-bs-target="#day60"
                                 type="button" role="tab" <?php echo $day45_data_exists ? '' :'disabled' ; ?>>Day 60</button>
-                        </li>
+                        </li> -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day60_data_exists ?  '' :'disabled text-muted' ; ?>" id="day90-tab" data-bs-toggle="tab" data-bs-target="#day90"
                                 type="button" role="tab" <?php echo $day60_data_exists ? '' :'disabled' ; ?>>Day 90</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day90_data_exists ?  '' :'disabled text-muted' ; ?>" id="day120-tab" data-bs-toggle="tab" data-bs-target="#day120"
                                 type="button" role="tab" <?php echo $day90_data_exists ? '' :'disabled' ; ?>>Day 120</button>
                         </li>
@@ -595,12 +595,12 @@ include('header.php');
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo $day150_data_exists ?  '' :'disabled text-muted' ; ?>" id="day180-tab" data-bs-toggle="tab" data-bs-target="#day180"
                                 type="button" role="tab" <?php echo $day150_data_exists ? '' :'disabled' ; ?>>Day 180</button>
-                        </li>
+                        </li> -->
                     </ul>
 
                     <div class="tab-content" id="followUpTabsContent">
-                        <div class="tab-pane fade show active" id="day3" role="tabpanel" aria-labelledby="day3-tab">
-                            <form id="day3form" method="POST" action="Digital-educator-follow-up-form-post">
+                        <div class="tab-pane fade" id="day3" role="tabpanel" aria-labelledby="day3-tab">
+                            <form id="day3form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                 <div class="form-section">
                                     <h2 class="section-title">📞 Day 3 Follow-up</h2>
 
@@ -801,11 +801,11 @@ include('header.php');
                             </form>
                         </div>
 
-                        <div class="tab-pane fade" id="day7" role="tabpanel" aria-labelledby="day7-tab">
+                        <div class="tab-pane fade show active" id="day7" role="tabpanel" aria-labelledby="day7-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🧘 Day 7 Follow-up</h2>
 
-                                <form id="day7form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day7form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="7">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1071,7 +1071,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day15" role="tabpanel" aria-labelledby="day15-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 15 Follow-up</h2>
-                                <form id="day15form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day15form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="15">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1360,7 +1360,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day30" role="tabpanel" aria-labelledby="day30-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 30 Follow-up</h2>
-                                <form id="day30form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day30form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="30">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1649,7 +1649,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day45" role="tabpanel" aria-labelledby="day45-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 45 Follow-up</h2>
-                                <form id="day45form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day45form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="45">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -1915,7 +1915,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day60" role="tabpanel" aria-labelledby="day60-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 60 Follow-up</h2>
-                                <form id="day60form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day60form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="60">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2235,7 +2235,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day90" role="tabpanel" aria-labelledby="day90-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 90 Follow-up</h2>
-                                <form id="day90form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day90form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="90">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2499,7 +2499,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day120" role="tabpanel" aria-labelledby="day120-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 120 Follow-up</h2>
-                                <form id="day120form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day120form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="120">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -2819,7 +2819,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day150" role="tabpanel" aria-labelledby="day150-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 150 Follow-up</h2>
-                                <form id="day150form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day150form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="150">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
                                     <div class="mb-3">
@@ -3108,7 +3108,7 @@ include('header.php');
                         <div class="tab-pane fade" id="day180" role="tabpanel" aria-labelledby="day180-tab">
                             <div class="form-section">
                                 <h2 class="section-title">🗓️ Day 180 Follow-up</h2>
-                                <form id="day150form" method="POST" action="Digital-educator-follow-up-form-post">
+                                <form id="day150form" method="POST" action="Digital-YogaDieticial-follow-up-form-post">
                                     <input type="hidden" name="day" value="180">
                                     <input type="hidden" name="patient_id" value="<?php echo $patientId; ?>">
 

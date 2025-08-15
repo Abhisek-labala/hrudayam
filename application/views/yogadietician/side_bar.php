@@ -9,7 +9,7 @@
 							<span>Analytics</span>
 						</li> -->
 						<li> 
-							<a href="<?php echo base_url();?>/Digital-Educator-Dashboard">
+							<a href="<?php echo base_url();?>/Digital-YogaDieticial-Dashboard">
 							<i class="fa fa-home" aria-hidden="true"></i>							
 							<span>Dashboard</span>
 						</li>
@@ -27,23 +27,18 @@
 						</li> -->
 
 						<li> 
-							<a href="<?php echo base_url();?>DigitalEducator-Patient-Inquiry">
-							<i class="fa fa-snowflake-o" aria-hidden="true"></i>
-                            <span>Patient Information</span></a>
-						</li>
-						<li> 
-							<a href="<?php echo base_url();?>digital-Patient-List">
+							<a href="<?php echo base_url();?>Digital-yoga-Patient-List">
 							<i class="fa fa-list-ol" aria-hidden="true"></i>
                             <span>Patient List</span></a>
 						</li>
                         
                          <li> 
-							<a href="<?php echo base_url();?>Digital-educator-change-password"><i class="fa fa-key"></i> 
+							<a href="<?php echo base_url();?>Digital-YogaDieticial-change-password"><i class="fa fa-key"></i> 
 							<span>Change Password</span></a>
 						</li> 
 
 						<li> 
-						<a href="<?php echo base_url();?>Digital-Educator-logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 
+						<a href="<?php echo base_url();?>Digital-YogaDieticial-logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 
 						<span>Logout</span></a> 
 						</li>
                   

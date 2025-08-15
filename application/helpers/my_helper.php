@@ -414,6 +414,18 @@ function getDigitalEducatorPatient($digital_educator_id)
     $EducatorPatient = $CI->master_model->customQueryArray($query);
     return array('EducatorPatient' => $EducatorPatient);
 }
+function getDigitalyogaEducatorPatient($digital_educator_id)
+{
+    $CI =& get_instance();
+    $query = "SELECT A.*, B.first_name AS educator_name 
+          FROM `patient_inquiry_new` A 
+          LEFT JOIN `educator` B ON A.`educator_id` = B.`id` 
+          LEFT JOIN `feedback_submitted` fs on A.`id`=fs.`patient_id`
+          WHERE `patient_name`!='' AND patient_enrolled='Yes'  AND fs.`day`='3'
+          ORDER BY A.`date` DESC";//echo $query;
+    $EducatorPatient = $CI->master_model->customQueryArray($query);
+    return array('EducatorPatient' => $EducatorPatient);
+}
 function getpatientlistdata()
 {
     $CI =& get_instance();
@@ -427,15 +439,18 @@ function getpatientlistdata()
 function getpatientlistdata2()
 {
     $CI =& get_instance();
-    $query = "SELECT A.* ,B.first_name AS educator_name,C.first_name AS digital_eductor_name
-FROM `patient_inquiry_new` A
-LEFT JOIN `educator` B ON B.id = A.educator_id
-LEFT JOIN `digital_educator` C ON C.id = A.digital_educator_id
-ORDER BY A.id DESC;";
-    //echo $query;
-    $EducatorPatient = $CI->master_model->customQueryArray($query);
-    return array('EducatorPatient' => $EducatorPatient);
+    
+    $query = "SELECT A.*,B.first_name AS educator_name ,C.first_name AS digital_educator_name 
+    FROM `patient_inquiry_new` A
+    LEFT JOIN `educator` B ON B.id = A.educator_id
+    LEFT JOIN `digital_educator` C ON A.digital_educator_id=C.id
+     where patient_enrolled='Yes' ORDER BY `id` desc";
+
+    $EducatorPatient2 = $CI->master_model->customQueryArray($query);
+
+    return array('EducatorPatient' => $EducatorPatient2);
 }
+
 
 function genderString($id)
 {

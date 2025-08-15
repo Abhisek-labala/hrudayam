@@ -219,15 +219,15 @@ $route['DigitalEducator-Patient-Inquiry-Post']       = "DigitalEducator/createPa
 ////////YOGA DIETOICIAL//////////////////
 $route['Digital-YogaDieticial-login'] ='Welcome/digitalYogaDieticialLogin';
 $route['Digital-YogaDieticial-login-Post'] ='Welcome/loginAuth2';
-$route['Digital-YogaDieticial-Dashboard'] ='DigitalYogaDieticial/dashboard';
-$route['digital-Patient-List2']       = "DigitalYogaDieticial/digitalPatientList";
-$route['Digital-YogaDieticial-logout']            = "DigitalYogaDieticial/logout";
-$route['Digital-YogaDieticial-change-password']             = "DigitalYogaDieticial/changePassword";
-$route['Digital-YogaDieticial-change-password-post']        = "DigitalYogaDieticial/changePasswordPost";
-$route['Digital-YogaDieticial-follow-up-form']        = "DigitalYogaDieticial/followupform";
-$route['Digital-YogaDieticial-follow-up-form-post']        = "DigitalYogaDieticial/followupformpost";
-$route['DigitalYogaDieticial-Patient-Inquiry']            = "DigitalYogaDieticial/createPatientInquiry";
-$route['DigitalYogaDieticial-Patient-Inquiry-Post']       = "DigitalYogaDieticial/createPatientInquiryPost";
+$route['Digital-YogaDieticial-Dashboard'] ='YogaDietician/dashboard';
+$route['Digital-yoga-Patient-List']       = "YogaDietician/digitalPatientList";
+$route['Digital-YogaDieticial-logout']            = "YogaDietician/logout";
+$route['Digital-YogaDieticial-change-password']             = "YogaDietician/changePassword";
+$route['Digital-YogaDieticial-change-password-post']        = "YogaDietician/changePasswordPost";
+$route['Digital-YogaDieticial-follow-up-form']        = "YogaDietician/followupform";
+$route['Digital-YogaDieticial-follow-up-form-post']        = "YogaDietician/followupformpost";
+$route['YogaDietician-Patient-Inquiry']            = "YogaDietician/createPatientInquiry";
+$route['YogaDietician-Patient-Inquiry-Post']       = "YogaDietician/createPatientInquiryPost";
 
 // //////////////////YOGA DIETOICIAL////////////////
 

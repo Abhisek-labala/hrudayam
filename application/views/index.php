@@ -242,7 +242,7 @@ include('head.php');
   <div class="role-buttons">
     <a href="https://hridayampsp.com/educator-login" class="role-btn">Educator</a>
     <a href="https://hridayampsp.com/Digital-Educator-login" class="role-btn">Digital Educator</a>
-    <!-- <a href="https://hridayampsp.com/Digital-YogaDieticial-login" class="role-btn">Digital Yoga Dietician</a> -->
+    <a href="https://hridayampsp.com/Digital-YogaDieticial-login" class="role-btn">Digital Yoga Dietician</a>
     <a href="https://hridayampsp.com/rm-login" class="role-btn">RM</a>
     <a href="https://hridayampsp.com/mis-login" class="role-btn">MIS</a>
     <a href="https://hridayampsp.com/pm-login" class="role-btn">PM</a>

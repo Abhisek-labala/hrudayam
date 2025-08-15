@@ -45,12 +45,13 @@ include('header.php');
 										<th>Educator Name</th>
 										<th>Digital Educator Name </th>
 										<th>Name</th>
+										<th>Mobile No</th>
 										<th>Gender</th>
 										<th>Age</th>
 										<th>Height</th>
 										<th>Weight</th>
 										<th>Doctor Name</th>
-										<th>Cipla Brand Prescribed</th>
+										<!-- <th>Cipla Brand Prescribed</th> -->
 										<th>Date</th>
 										<th>Actions</th>
 									</tr>
@@ -80,6 +81,7 @@ include('header.php');
 										$date = $PatientItem['date'];
 										$id = $PatientItem['id'];
 										$name = $PatientItem['patient_name'];
+										$mobile_no = $PatientItem['mobile_number'];
 										$age = $PatientItem['age'];
 										$educator_name=$PatientItem['educator_name'];
 										$digital_educator_name=$PatientItem['digital_educator_name'];
@@ -121,6 +123,7 @@ include('header.php');
 											<td><?php echo $educator_name; ?></td>
 											<td><?php echo $digital_educator_name; ?></td>
 											<td><?php echo $name; ?></td>
+											<td><?php echo $mobile_no; ?></td>
 											<td><?php echo $gender; ?></td>
 											<td><?php echo $age; ?></td>
 											<td><?php echo $height; ?></td>
@@ -131,7 +134,7 @@ include('header.php');
 
 
 											<td><?php echo $doctorName; ?></td>
-											<td><?php echo $brand; ?></td>
+											<!-- <td><?php echo $brand; ?></td> -->
 											<td><?php echo $date; ?></td>
 											<td><button class="btn btn-success" onclick="openform(<?php echo $id;?>);">View Form</button></td>
 										</tr>

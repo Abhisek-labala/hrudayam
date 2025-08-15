@@ -32,8 +32,8 @@ include('header.php');
 						<div class="card-body">
 
 							<?php
-							$digital_educator_id = $this->session->userdata('digital_educator_id');
-							$EducatorPatient = getDigitalEducatorPatient($digital_educator_id);
+							$digital_educator_id = $this->session->userdata('digital_yoga_dietician_id');
+							$EducatorPatient = getDigitalyogaEducatorPatient($digital_educator_id);
 							// pr($EducatorPatient);
 							$EducatorPatientList = $EducatorPatient['EducatorPatient'];
 							?>
@@ -157,7 +157,7 @@ include('footer.php');
 ?>
 <script>
 	function openform($id) {
-    window.location.href = 'Digital-educator-follow-up-form?patient_id=' + $id;
+    window.location.href = 'Digital-YogaDieticial-follow-up-form?patient_id=' + $id;
 }
 
 </script>

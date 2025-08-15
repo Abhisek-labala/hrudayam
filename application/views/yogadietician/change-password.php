@@ -30,7 +30,7 @@ include('side_bar.php');
 								<h4 class="card-title">Basic Inputs</h4>
 							</div>-->
 							<div class="card-body">
-								<form action="<?php echo base_url();?>Digital-educator-change-password-post" name="changePassword" id="changePassword" method="post" enctype="multipart/form-data" >
+								<form action="<?php echo base_url();?>Digital-YogaDieticial-change-password-post" name="changePassword" id="changePassword" method="post" enctype="multipart/form-data" >
 									
                                     
                                     <div class="mb-3 row">

@@ -155,12 +155,6 @@ class Welcome extends CI_Controller {
 			$error = "Email is required.";
 			redirect(base_url().'/Digital-YogaDieticial-login');
 		} 
-		
-		// if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		// 	$this->session->set_flashdata('error','Please Enter Email');
-		// 	redirect(base_url().'/Digital-YogaDieticial-login');
-		// 	die();
-		// } 
 
 		if (empty($password)) {
 			$this->session->set_flashdata('error','Please Enter Password');
@@ -170,12 +164,15 @@ class Welcome extends CI_Controller {
 		
 		if($email && $password){
 			$loginDataArray = array();
-			$loginDataArray['emp_id'] 	= $email;
+			$loginDataArray['email'] 	= $email;
 			$loginDataArray['password'] = $password;
+			// print_r($loginDataArray);die;
 			$login_data = $this->master_model->getRow('digital_yoga_dietician',$loginDataArray);
+			// print_r($login_data);die;
 			unset($loginDataArray);
 			
 			if($login_data){
+				// echo 'hii';die;
 				$this->session->set_userdata('digital_yoga_dietician_id', $login_data->id);
 				$this->session->set_userdata('type', 'digital_yoga_dietician');
 				
@@ -187,7 +184,7 @@ class Welcome extends CI_Controller {
 				unset($login_logs);
 				
 				//redirect(base_url().'/Patient-Information');
-				redirect(base_url().'/Digital-Educator-Dashboard');
+				redirect(base_url().'/Digital-YogaDieticial-Dashboard');
 				
 			}else{		
  
@@ -210,7 +207,7 @@ class Welcome extends CI_Controller {
 								
 					//redirect(base_url().'/Patient-Information');
 					//redirect(base_url().'/Patient-Information');
-					redirect(base_url().'/Digital-Educator-Dashboard');
+					redirect(base_url().'/Digital-YogaDieticial-Dashboard');
 				}
 
 			$this->session->set_flashdata('error','Invalid Details');
