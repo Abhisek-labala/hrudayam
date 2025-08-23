@@ -306,6 +306,492 @@ class Pm extends CI_Controller
 			$this->jsonResponse(['error' => 'Server error'], 500);
 		}
 	}
+	public function getRmdata($id)
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Validate ID
+        if (!is_numeric($id) || $id <= 0) {
+            throw new Exception('Invalid ID');
+        }
+
+        // Fetch educator data
+        $educator = $this->db->select('*')
+            ->from('rm_name')
+            ->where('id', $id)
+            ->get()
+            ->row_array(); // Changed to row_array() for better handling
+
+        if (!$educator) {
+            $this->jsonResponse(['status' => false, 'message' => 'Educator not found']);
+            return;
+        }
+
+        // Format the response according to your frontend expectations
+        $response = [
+            'status' => true,
+            'message' => 'Educator data retrieved successfully',
+            'data' => $educator
+        ];
+
+        $this->jsonResponse($response);
+
+    } catch (Exception $e) {
+        log_message('error', 'Get Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+	public function getEducator($id)
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Validate ID
+        if (!is_numeric($id) || $id <= 0) {
+            throw new Exception('Invalid ID');
+        }
+
+        // Fetch educator data
+        $educator = $this->db->select('*')
+            ->from('educator')
+            ->where('id', $id)
+            ->get()
+            ->row_array(); // Changed to row_array() for better handling
+
+        if (!$educator) {
+            $this->jsonResponse(['status' => false, 'message' => 'Educator not found']);
+            return;
+        }
+
+        // Format the response according to your frontend expectations
+        $response = [
+            'status' => true,
+            'message' => 'Educator data retrieved successfully',
+            'data' => $educator
+        ];
+
+        $this->jsonResponse($response);
+
+    } catch (Exception $e) {
+        log_message('error', 'Get Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+	public function getdoctordata($id)
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Validate ID
+        if (!is_numeric($id) || $id <= 0) {
+            throw new Exception('Invalid ID');
+        }
+
+        // Fetch educator data
+        $educator = $this->db->select('*')
+            ->from('doctors_new')
+            ->where('id', $id)
+            ->get()
+            ->row_array(); // Changed to row_array() for better handling
+
+        if (!$educator) {
+            $this->jsonResponse(['status' => false, 'message' => 'Educator not found']);
+            return;
+        }
+
+        // Format the response according to your frontend expectations
+        $response = [
+            'status' => true,
+            'message' => 'Educator data retrieved successfully',
+            'data' => $educator
+        ];
+
+        $this->jsonResponse($response);
+
+    } catch (Exception $e) {
+        log_message('error', 'Get Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+public function updateEducatorPost()
+{
+	// Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Get input data
+        $educator_id = $this->input->post('educator_id');
+        $emp_id = $this->input->post('emp_id');
+        $first_name = $this->input->post('first_name');
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $mobile = $this->input->post('mobile');
+        $state = $this->input->post('state');
+        $city = $this->input->post('city');
+        $address = $this->input->post('address');
+
+        // Validate required fields
+        if (empty($educator_id) || empty($emp_id) || empty($first_name) || empty($email) || empty($mobile) || empty($state) || empty($city) || empty($address)) {
+            throw new Exception('All fields marked with * are required');
+        }
+
+        // Check if email already exists for another educator
+        $existing_email = $this->db->where('email', $email)
+            ->where('id !=', $educator_id)
+            ->get('educator')
+            ->row();
+        if ($existing_email) {
+            throw new Exception('Email already exists for another educator');
+        }
+
+        // Check if employee ID already exists for another educator
+        $existing_emp_id = $this->db->where('emp_id', $emp_id)
+            ->where('id !=', $educator_id)
+            ->get('educator')
+            ->row();
+        if ($existing_emp_id) {
+            throw new Exception('Employee ID already exists for another educator');
+        }
+
+        // Prepare update data
+        $update_data = [
+            'emp_id' => $emp_id,
+            'first_name' => $first_name,
+            'email' => $email,
+            'mobile' => $mobile,
+            'state' => $state,
+            'city' => $city,
+            'address' => $address,
+            'update_at' => date('Y-m-d H:i:s')
+        ];
+
+        // Update password only if provided
+        if (!empty($password)) {
+            if (strlen($password) < 5 || !preg_match('/[A-Z]/', $password)) {
+                throw new Exception('Password must be at least 6 characters with at least one uppercase letter');
+            }
+            $update_data['password'] =$password;
+        }
+
+        // Handle profile image upload
+        if (!empty($_FILES['profile_image']['name'])) {
+            $config = [
+					'upload_path' => './uploads/',
+					'allowed_types' => 'jpg|jpeg|png',
+					'max_size' => 2048, // 2MB
+					'file_name' => md5(time() . $_FILES['profile_image']['name'])
+				];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('profile_image')) {
+                $upload_data = $this->upload->data();
+                $update_data['profile_image'] = 'uploads/' . $upload_data['file_name'];
+
+                // Delete old profile image if exists
+                $old_image = $this->db->select('profile_image')
+                    ->where('id', $educator_id)
+                    ->get('educator')
+                    ->row()->profile_image;
+                if ($old_image && file_exists($old_image)) {
+                    unlink($old_image);
+                }
+            } else {
+                throw new Exception($this->upload->display_errors());
+            }
+        }
+
+        // Update educator in database
+        $this->db->where('id', $educator_id);
+        $result = $this->db->update('educator', $update_data);
+
+        if ($result) {
+            $this->jsonResponse([
+                'status' => true,
+                'message' => 'Educator updated successfully'
+            ]);
+        } else {
+            throw new Exception('Failed to update educator');
+        }
+
+    } catch (Exception $e) {
+        log_message('error', 'Update Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+public function updatedigitalEducatorPost()
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Get input data
+        $educator_id = $this->input->post('educator_id');
+        $emp_id = $this->input->post('emp_id');
+        $first_name = $this->input->post('first_name');
+        $password = $this->input->post('password');
+        
+        // Validate required fields
+        if (empty($educator_id) || empty($emp_id) || empty($first_name)) {
+            throw new Exception('All fields marked with * are required');
+        }
+
+        // Check if employee ID already exists for another educator
+        $existing_emp_id = $this->db->where('emp_id', $emp_id)
+            ->where('id !=', $educator_id)
+            ->get('digital_educator')
+            ->row();
+        if ($existing_emp_id) {
+            throw new Exception('Employee ID already exists for another educator');
+        }
+
+        // Prepare update data
+        $update_data = [
+            'emp_id' => $emp_id,
+            'first_name' => $first_name,
+            'updated_at' => date('Y-m-d H:i:s') // Fixed typo: update_at → updated_at
+        ];
+
+        // Update password only if provided
+        if (!empty($password)) {
+            if (strlen($password) < 5 || !preg_match('/[A-Z]/', $password)) {
+                throw new Exception('Password must be at least 5 characters with at least one uppercase letter');
+            }
+            $update_data['password'] = $password;
+        }
+
+        // Handle profile image upload
+        if (!empty($_FILES['profile_image']['name'])) {
+            $config = [
+                'upload_path' => './uploads/',
+                'allowed_types' => 'jpg|jpeg|png',
+                'max_size' => 2048, // 2MB
+                'file_name' => md5(time() . $_FILES['profile_image']['name'])
+            ];
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('profile_image')) {
+                $upload_data = $this->upload->data();
+                $update_data['profile_image'] = 'uploads/' . $upload_data['file_name'];
+
+                // Delete old profile image if exists
+                $old_image_result = $this->db->select('profile_image')
+                    ->where('id', $educator_id)
+                    ->get('digital_educator')
+                    ->row();
+                
+                if ($old_image_result && !empty($old_image_result->profile_image) && file_exists($old_image_result->profile_image)) {
+                    unlink($old_image_result->profile_image);
+                }
+            } else {
+                throw new Exception($this->upload->display_errors());
+            }
+        }
+
+        // Update educator in database
+        $this->db->where('id', $educator_id);
+        $result = $this->db->update('digital_educator', $update_data);
+
+        if ($result) {
+            $this->jsonResponse([
+                'status' => true,
+                'message' => 'Digital educator updated successfully'
+            ]);
+        } else {
+            throw new Exception('Failed to update digital educator');
+        }
+
+    } catch (Exception $e) {
+        log_message('error', 'Update Digital Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+public function updatermPost()
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Get input data
+        $educator_id = $this->input->post('rm_id');
+        $emp_id = $this->input->post('emp_id');
+        $first_name = $this->input->post('name');
+        $password = $this->input->post('password');
+        $zone_id = $this->input->post('zone_id');
+        
+        // Validate required fields
+        if (empty($educator_id) || empty($emp_id) || empty($first_name || empty($zone_id))) {
+            throw new Exception('All fields marked with * are required');
+        }
+
+        // Check if employee ID already exists for another educator
+        $existing_emp_id = $this->db->where('emp_id', $emp_id)
+            ->where('id !=', $educator_id)
+            ->get('rm_name')
+            ->row();
+        if ($existing_emp_id) {
+            throw new Exception('Employee ID already exists for another Rm');
+        }
+
+        // Prepare update data
+        $update_data = [
+            'emp_id' => $emp_id,
+            'name' => $first_name,
+			'zone_id' => $zone_id,
+            'update_at' => date('Y-m-d H:i:s') // Fixed typo: update_at → updated_at
+        ];
+
+        // Update password only if provided
+        if (!empty($password)) {
+            if (strlen($password) < 5 || !preg_match('/[A-Z]/', $password)) {
+                throw new Exception('Password must be at least 5 characters with at least one uppercase letter');
+            }
+            $update_data['password'] = $password;
+        }
+        // Update educator in database
+        $this->db->where('id', $educator_id);
+        $result = $this->db->update('rm_name', $update_data);
+
+        if ($result) {
+            $this->jsonResponse([
+                'status' => true,
+                'message' => 'RM updated successfully'
+            ]);
+        } else {
+            throw new Exception('Failed to update RM');
+        }
+
+    } catch (Exception $e) {
+        log_message('error', 'Update RM Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+public function updatedoctorPost()
+{
+    // Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Get input data
+        $doctor_id = $this->input->post('doctor_id');
+        $msl_code = $this->input->post('msl_code');
+        $name = $this->input->post('name');
+        $state = $this->input->post('state');
+        $city = $this->input->post('city');
+        $zone = $this->input->post('zone');
+        $speciality = $this->input->post('speciality');
+        $first_vist = $this->input->post('first_vist');
+        
+        // Validate required fields
+        if (empty($doctor_id) || empty($msl_code) || empty($name || empty($zone) || empty($state) || empty($city) || empty($speciality) || empty($first_vist))) {
+            throw new Exception('All fields marked with * are required');
+        }
+
+        // Check if employee ID already exists for another educator
+        $existing_emp_id = $this->db->where('msl_code', $msl_code)
+            ->where('id !=', $doctor_id)
+            ->get('doctors_new')
+            ->row();
+        if ($existing_emp_id) {
+            throw new Exception('MSL Code already exists for another Doctor');
+        }
+
+        // Prepare update data
+        $update_data = [
+			'msl_code' => $msl_code,
+			'name' => $name,
+			'state' => $state,
+			'city' => $city,
+			'zone' => $zone,
+			'speciality' => $speciality,
+			'first_vist' => $first_vist,
+            'update_at' => date('Y-m-d H:i:s') // Fixed typo: update_at → updated_at
+        ];
+        // Update educator in database
+        $this->db->where('id', $doctor_id);
+        $result = $this->db->update('doctors_new', $update_data);
+
+        if ($result) {
+            $this->jsonResponse([
+                'status' => true,
+                'message' => 'Doctor updated successfully'
+            ]);
+        } else {
+            throw new Exception('Failed to update Doctor');
+        }
+
+    } catch (Exception $e) {
+        log_message('error', 'Update Doctor Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+
+public function getDigiEducator($id)
+{
+	// Check session
+    if (!$this->session->userdata('pm_id')) {
+        $this->jsonResponse(['status' => false, 'message' => 'Session expired'], 401);
+        return;
+    }
+
+    try {
+        // Validate ID
+        if (!is_numeric($id) || $id <= 0) {
+            throw new Exception('Invalid ID');
+        }
+
+        // Fetch educator data
+        $educator = $this->db->select('*')
+            ->from('digital_educator')
+            ->where('id', $id)
+            ->get()
+            ->row_array(); // Changed to row_array() for better handling
+
+        if (!$educator) {
+            $this->jsonResponse(['status' => false, 'message' => 'Educator not found']);
+            return;
+        }
+
+        // Format the response according to your frontend expectations
+        $response = [
+            'status' => true,
+            'message' => 'Educator data retrieved successfully',
+            'data' => $educator
+        ];
+
+        $this->jsonResponse($response);
+
+    } catch (Exception $e) {
+        log_message('error', 'Get Educator Error: ' . $e->getMessage());
+        $this->jsonResponse(['status' => false, 'message' => $e->getMessage()], 500);
+    }
+}
 
 	// Helper method for JSON responses
 	private function jsonResponse($data, $status = 200)

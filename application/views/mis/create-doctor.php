@@ -239,6 +239,7 @@ include('footer.php');
 					data: null,
 					render: function (data, type, row) {
 						return '<div class="actions">' +
+						'<a href="javascript:void(0);" class="btn btn-sm bg-success-light m-2" onclick="editDoctor('+ row.id +')">Edit</a>' +
 							'<a href="javascript:void(0);" class="btn btn-sm bg-danger-light m-2" onclick="confirmDelete(' + row.id + ')">Delete</a>' +
 							'</div>';
 					}
@@ -250,6 +251,85 @@ include('footer.php');
 			}
 		});
 	});
+	function editDoctor(id) {
+	// Open modal
+	$('#doctorModal').modal('show');
+	$('#modalTitle').text('Edit HCP');
+	$('#createDoctor')[0].reset();
+	$('#submitBtn').text('Update');
+
+	// Clear previous error classes/messages
+	$('.is-invalid').removeClass('is-invalid');
+	$('.invalid-feedback').remove();
+
+	// Fetch doctor details by ID
+	$.ajax({
+		url: 'Mis-Get-Doctor/' + id, // Backend endpoint to get doctor details
+		type: 'GET',
+		dataType: 'json',
+		success: function (response) {
+			if (response.status && response.data) {
+				const doc = response.data;
+
+				// Set basic fields
+				$('#doctor_id').val(doc.id);
+				$('#msl_code').val(doc.msl_code);
+				$('#name').val(doc.name);
+				$('#speciality').val(doc.speciality);
+
+				// Handle date (ensure format is YYYY-MM-DD for input[type=date])
+				if (doc.first_vist) {
+					const formattedDate = new Date(doc.first_vist).toISOString().split('T')[0];
+					$('#first_vist').val(formattedDate);
+				}
+				const waitForState = setInterval(() => {
+					const $state = $('#state');
+					if ($state.find('option').length > 1) {
+						let matched = false;
+						$state.find('option').each(function () {
+							const optionText = $(this).text().trim().toLowerCase();
+							const doctorState = doc.state.trim().toLowerCase();
+
+							if (optionText === doctorState) {
+								$(this).prop('selected', true);
+								matched = true;
+								$state.trigger('change');
+								clearInterval(waitForState);
+							}
+						});
+
+						// Fallback: add option if not matched
+						if (!matched) {
+							$state.append('<option selected value="' + doc.state + '">' + doc.state + '</option>').trigger('change');
+							clearInterval(waitForState);
+						}
+					}
+				}, 100);
+
+				// Wait for city options to load
+				const waitForCity = setInterval(() => {
+					if ($('#city option').length > 1) {
+						$('#city').val(doc.city).trigger('change');
+						clearInterval(waitForCity);
+
+						// Then wait for zone
+						const waitForZone = setInterval(() => {
+							if ($('#zone option').length > 1) {
+								$('#zone').val(doc.zone);
+								clearInterval(waitForZone);
+							}
+						}, 100);
+					}
+				}, 100);
+			} else {
+				showAlert('error', 'Failed to fetch doctor details');
+			}
+		},
+		error: function () {
+			showAlert('error', 'An error occurred while fetching data');
+		}
+	});
+}
 
 	$('#state').on('change', function () {
 
@@ -374,13 +454,16 @@ include('footer.php');
 	$('#createDoctor').submit(function (e) {
     e.preventDefault();
     var $submitBtn = $('#submitBtn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Processing...');
-
+let doctorId = $('#doctor_id').val();
     if (validateDoctorForm()) {
         var formData = new FormData(this);
 		var stateText = $('#state option:selected').text();
-        formData.set('state', stateText); 
+        formData.set('state', stateText);
+		let url = doctorId
+			? 'Mis-Update-Doctor'// if editing
+			: 'MIS-Create-Doctor-Post';   
         $.ajax({
-            url: 'MIS-Create-Doctor-Post',
+            url: url,
             type: 'POST',
             data: formData,
             processData: false,

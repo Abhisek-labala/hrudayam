@@ -94,7 +94,7 @@ include('header.php');
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Password <span class="text-danger">*</span></label>
-								<input type="password" maxlength="12" class="form-control" name="password"
+								<input type="text" maxlength="12" class="form-control" name="password"
 									id="password">
 								<small class="text-muted">Min 5 chars with at least 1 uppercase letter</small>
 							</div>
@@ -192,6 +192,7 @@ include('footer.php');
 						data: null,
 						render: function (data, type, row) {
 							return '<div class="actions">' +
+								'<a href="javascript:void(0);" class="btn btn-sm bg-success-light m-2" onclick="editDigiEducator(' + row.id + ')">Edit</a>' +
 								'<a href="javascript:void(0);" class="btn btn-sm bg-danger-light m-2" onclick="confirmDelete(' + row.id + ')">Delete</a>' +
 								'</div>';
 						}
@@ -204,12 +205,41 @@ include('footer.php');
 			});
 		});
 
-	
+	// Edit digital educator function
+	function editDigiEducator(id) {
+		$.ajax({
+			url: 'Pm-Get-DigiEducator/' + id,
+			type: 'GET',
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					// Populate the form with educator data
+					$('#educator_id').val(response.data.id);
+					$('#emp_id').val(response.data.emp_id);
+					$('#first_name').val(response.data.first_name);
+					$('#password').val(response.data.password);
+					
+					// Update modal title and button text
+					$('#modalTitle').text('Edit Digital Educator');
+					$('#submitBtn').text('Update');
+					
+					// Show the modal
+					$('#educatorModal').modal('show');
+				} else {
+					alert('error', response.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				alert('error', 'Error loading digital educator data');
+				console.error(xhr.responseText);
+			}
+		});
+	}
 
 	// Reset form and modal - improved version
 	function resetForm() {
 		$('#educatorModal').modal('show');
-		$('#modalTitle').text('Add Educator');
+		$('#modalTitle').text('Add Digital Educator');
 		$('#createEducator')[0].reset();
 		$('#educator_id').val('');
 		$('#password').val('').removeAttr('placeholder');

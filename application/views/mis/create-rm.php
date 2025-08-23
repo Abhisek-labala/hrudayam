@@ -73,6 +73,7 @@ include('header.php');
 			<div class="modal-body">
 				<form action="MIS-Create-Rm-Post" name="createRm" id="createRm" method="post"
 					enctype="multipart/form-data">
+					<input type="hidden" name="rm_id" id="rm_id" />
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -91,7 +92,7 @@ include('header.php');
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Password <span class="text-danger">*</span></label>
-								<input type="password" maxlength="12" class="form-control" name="password"
+								<input type="text" maxlength="12" class="form-control" name="password"
 									id="password">
 								<small class="text-muted">Min 5 chars with at least 1 uppercase letter</small>
 							</div>
@@ -200,6 +201,7 @@ include('footer.php');
 						data: null,
 						render: function (data, type, row) {
 							return '<div class="actions">' +
+							'<a href="javascript:void(0);" class="btn btn-sm bg-info-light m-2" onclick="editRm(' + row.id + ')">Edit</a>' +
 								'<a href="javascript:void(0);" class="btn btn-sm bg-danger-light m-2" onclick="confirmDelete(' + row.id + ')">Delete</a>' +
 								'</div>';
 						}
@@ -213,6 +215,51 @@ include('footer.php');
 		});
 
 	
+function editRm(id) {
+	$.ajax({
+		url: 'Mis-Get-Rm/' + id,
+		type: 'GET',
+		dataType: 'json',
+		success: function (response) {
+			if (response.status && response.data) {
+				const rm = response.data;
+
+				$('#rm_id').val(rm.id);
+				$('#emp_id').val(rm.emp_id);
+				$('#name').val(rm.name);
+				$('#password').val(rm.password); // Leave blank for security
+				$('#zone_id').html('<option value="">Loading...</option>');
+
+				// Fetch zone list and set selected
+				$.ajax({
+					url: 'MIS-Get-zones',
+					type: 'GET',
+					dataType: 'json',
+					success: function (zoneRes) {
+						if (zoneRes.status === 'success') {
+							let options = '<option value="">-- Select Zone --</option>';
+							$.each(zoneRes.zones, function (index, zone) {
+								options += '<option value="' + $('<div>').text(zone.id).html() + '"'
+									+ (zone.id == rm.zone_id ? ' selected' : '') + '>'
+									+ $('<div>').text(zone.name).html() + '</option>';
+							});
+							$('#zone_id').html(options);
+						}
+					}
+				});
+
+				$('#modalTitle').text('Edit RM');
+				$('#submitBtn').text('Update');
+				$('#rmModal').modal('show');
+			} else {
+				alert('Failed to fetch RM data');
+			}
+		},
+		error: function () {
+			alert('Error fetching RM details');
+		}
+	});
+}
 
 	// Reset form and modal - improved version
 	function resetForm() {
@@ -310,7 +357,7 @@ include('footer.php');
         var formData = new FormData(this);
 
         $.ajax({
-            url: 'MIS-Create-Rm-Post',
+            url:  $('#rm_id').val() ? 'Mis-Update-Rm-Post' : 'MIS-Create-Rm-Post',
             type: 'POST',
             data: formData,
             processData: false,

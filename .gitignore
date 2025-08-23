@@ -42,3 +42,4 @@ dist/
 /application/views/mis/my_helper.php
 
 /application/views/admin/my_helper.php
+/uploads
